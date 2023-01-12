@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mask
+  m_Name: Ar-Camera-Material
   m_Shader: {fileID: -6465566751694194690, guid: 61ab27e5eb95a3149ab7274ad14b66b9,
     type: 3}
   m_ShaderKeywords: 
@@ -22,6 +22,10 @@ Material:
     m_TexEnvs:
     - Texture2D_9a3cfc85128246a1ad36e92583115bca:
         m_Texture: {fileID: 8600000, guid: ecef408de47ced54f88274d1bae9e6bc, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_ad7a7ca9fdb14768b85cdf946c60d901:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -85,6 +89,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_96c1454b5ef84e12b1afec13461e5317: 1
+    - Vector1_5e4608778354445d94160fa87563cbf3: 0.01
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -112,6 +118,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_8ea8b51475084c99846639eb54b1396a: {r: 0, g: 0, b: 0, a: 1}
+    - Vector2_47ee7fa914f94c26b12dc53dae0e29d0: {r: 0.5, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
