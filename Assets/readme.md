@@ -9,3 +9,5 @@
 
 * https://opengameart.org/content/low-poly-food-pack
 * https://opengameart.org/content/lowpoly-house-interior-pack
+
+* https://opengameart.org/content/simple-ceiling-lamp-obj
