@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class TrashcanBehavior : MonoBehaviour
 {
     private AudioSource _audioSource;
-    
+
     // Start is called before the first frame update
     void Start()
     {
