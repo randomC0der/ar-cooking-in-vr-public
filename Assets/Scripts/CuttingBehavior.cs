@@ -19,6 +19,7 @@ public class CuttingBehavior : MonoBehaviour
     void Start()
     {
         grabable = gameObject.AddGrabableComponents();
+        grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cuttable");
         _attatchTransform = transform.Find("AttatchTransformCut");
     }
 
