@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Easter Egg
+  - TaskManager
   layers:
   - Default
   - TransparentFX
