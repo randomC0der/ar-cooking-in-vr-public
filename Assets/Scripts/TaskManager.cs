@@ -30,6 +30,7 @@ public class TaskManager : MonoBehaviour
     {
         var task = new Task(text);
         _tasks.Add(task);
+
         return task;
     }
 
