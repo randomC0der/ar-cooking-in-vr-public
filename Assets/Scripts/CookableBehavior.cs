@@ -22,7 +22,7 @@ public class CookableBehavior : MonoBehaviour
 
     public bool PlayBurning { get; set; }
 
-    private GameObject _parent;
+    public GameObject Parent { get; private set; }
     private CookingParentBehavior _parentBehavior;
 
     public AudioSource CookingAudioSource { get; private set; }
@@ -43,20 +43,20 @@ public class CookableBehavior : MonoBehaviour
         GrabableGameObject grabable = gameObject.AddGrabableComponents();
         grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
 
-        if (transform.parent is null)
+        if (transform.parent is null) // aus dem Designer
         {
-            _parent = new GameObject("Cookable Parent");
-            _parentBehavior = _parent.AddComponent<CookingParentBehavior>()
+            Parent = new GameObject("Cookable Parent");
+            _parentBehavior = Parent.AddComponent<CookingParentBehavior>()
                 .PassParameter(gameObject, cookedItem, fire, cookingTime, overCookingTime, cookingClip, burningClip, ignitionClip);
-            transform.parent = _parent.transform;
+            transform.parent = Parent.transform;
             CookingAudioSource.clip = cookingClip;
             _burningAudioSource.clip = burningClip;
             _ignitionAudioSource.clip = ignitionClip;
         }
-        else
+        else // aus dem Parent
         {
-            _parent = transform.parent.gameObject;
-            _parentBehavior = _parent.GetComponent<CookingParentBehavior>();
+            Parent = transform.parent.gameObject;
+            _parentBehavior = Parent.GetComponent<CookingParentBehavior>();
             grabable.XrGrab.attachTransform = _parentBehavior.AttatchTransform;
             CookingAudioSource.clip = _parentBehavior.cookingClip;
             _burningAudioSource.clip = _parentBehavior.burningClip;
@@ -79,7 +79,7 @@ public class CookableBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _parent.transform.position = transform.position;
+        Parent.transform.position = transform.position;
         transform.localPosition = Vector3.zero;
 
         if (PlayBurning && !_burningAudioSource.isPlaying)

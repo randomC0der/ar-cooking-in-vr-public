@@ -16,6 +16,12 @@ public class TrashcanBehavior : MonoBehaviour
     public void EmptyTrashcan(SelectEnterEventArgs e)
     {
         _audioSource.PlayOneShot(_audioSource.clip);
-        Destroy(e.interactableObject.transform.gameObject);
+        Transform t = e.interactableObject.transform;
+        GameObject parent = t.GetComponent<CookableBehavior>().Parent;
+        Destroy(t.gameObject);
+        if (parent != null)
+        {
+            Destroy(parent);
+        }
     }
 }
