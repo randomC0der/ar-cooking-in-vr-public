@@ -17,6 +17,17 @@ static class Util
             Rigidbody = rigid
         };
     }
+
+    public static Transform AttatchTo(this Transform original, Transform parent = null)
+    {
+        var clone = new GameObject("Attatch Transform").transform;
+        clone.SetParent(parent, worldPositionStays: true);
+        clone.localPosition = original.localPosition;
+        clone.localEulerAngles = original.localEulerAngles;
+        clone.localScale = original.localScale;
+
+        return clone;
+    }
 }
 
 public struct GrabableGameObject

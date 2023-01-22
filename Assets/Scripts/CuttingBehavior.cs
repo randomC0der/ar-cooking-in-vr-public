@@ -35,11 +35,7 @@ public class CuttingBehavior : MonoBehaviour
 
         if (_attatchTransform != null)
         {
-            var trans = new GameObject("Attatch Transform").transform;
-            trans.SetParent(lettuce.transform, true);
-            trans.localPosition = _attatchTransform.localPosition;
-            trans.localEulerAngles = _attatchTransform.localEulerAngles;
-            trans.localScale = _attatchTransform.localScale;
+            _attatchTransform.AttatchTo(lettuce.transform);
         }
 
         GrabableGameObject grabableLettuce = lettuce.AddGrabableComponents();
