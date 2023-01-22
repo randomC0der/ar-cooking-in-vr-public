@@ -55,6 +55,7 @@ public class CookingParentBehavior : MonoBehaviour
         if (_timer > cookingTime + overCookingTime && _done.HasValue)
         {
             _done = null;
+            cookedItem.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
             GameObject model = Instantiate(fire, transform);
             cookedItem.GetComponent<CookableBehavior>().PlayBurning = true;
         }

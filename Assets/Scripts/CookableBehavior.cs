@@ -40,8 +40,10 @@ public class CookableBehavior : MonoBehaviour
 
         _ignitionAudioSource = gameObject.AddComponent<AudioSource>();
 
-        GrabableGameObject grabable = gameObject.AddGrabableComponents();
+        GrabableGameObject grabable = gameObject.AddGrabableComponents(false);
         grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
+        grabable.XrGrab.useDynamicAttach = true;
+        grabable.XrGrab.matchAttachPosition = false;
 
         if (transform.parent is null) // aus dem Designer
         {
@@ -61,6 +63,7 @@ public class CookableBehavior : MonoBehaviour
             CookingAudioSource.clip = _parentBehavior.cookingClip;
             _burningAudioSource.clip = _parentBehavior.burningClip;
             _ignitionAudioSource.clip = _parentBehavior.ignitionClip;
+            grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
         }
     }
 
