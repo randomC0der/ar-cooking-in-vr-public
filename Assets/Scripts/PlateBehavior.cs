@@ -8,31 +8,14 @@ public class PlateBehavior : MonoBehaviour
 {
     private GameObject _snapSpace;
     private List<SnapSpace> _children = new List<SnapSpace>();
+    private AudioSource _audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         _snapSpace = Resources.Load<GameObject>("Snap Space");
+        _audioSource = gameObject.GetComponent<AudioSource>();
 
-        //children = Enumerable.Range(0, transform.childCount)
-        //    .Select(i => transform.GetChild(i).gameObject)
-        //    .Select(x => new SnapSpace
-        //    {
-        //        GameObject = x,
-        //        Interactor = x.GetComponent<StackingSocketInteractor>()
-        //    })
-        //    .OrderBy(x => x.GameObject.name)
-        //    .ToList();
-
-        //foreach (var child in children)
-        //{
-        //    child.Interactor.socketActive = false;
-
-        
-
-        
-        //}
-        //children[0].Interactor.socketActive = true;
         CreateSnapSpace();
     }
 
@@ -62,6 +45,7 @@ public class PlateBehavior : MonoBehaviour
 
     void EnableNextLevel(SelectEnterEventArgs e)
     {
+        _audioSource.Play();
         if (_children.All(x => x.Interactor.hasSelection))
         {
             var snapSpace = CreateSnapSpace();
