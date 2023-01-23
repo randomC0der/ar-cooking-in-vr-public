@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[HideInInspector]
+/// <summary>
+/// Annahmen: <see cref="rawItem"/> und <see cref="cookedItem"/> müssen die gleiche Skalierung haben.
+/// </summary>
 public class CookingParentBehavior : MonoBehaviour
 {
     public GameObject rawItem;
@@ -23,6 +25,10 @@ public class CookingParentBehavior : MonoBehaviour
     private bool? _done = false; // null means it's overcooked
 
     public bool IsCooking { get; set; }
+
+    /// <summary>
+    /// Transformation, damit das Objekt richtig an den XR controller / sockets attatched wird
+    /// </summary>
     public Transform AttatchTransform { get; private set; }
 
     void Update()
@@ -49,6 +55,7 @@ public class CookingParentBehavior : MonoBehaviour
         if (_timer > cookingTime + overCookingTime && _done.HasValue)
         {
             _done = null;
+            cookedItem.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
             GameObject model = Instantiate(fire, transform);
             cookedItem.GetComponent<CookableBehavior>().PlayBurning = true;
         }
@@ -57,6 +64,9 @@ public class CookingParentBehavior : MonoBehaviour
 
 public static class CookingParentBehaviorExtension
 {
+    /// <summary>
+    /// Hilfsmethode, um vom Child zum Parent Information zu übertragen
+    /// </summary>
     public static CookingParentBehavior PassParameter(this CookingParentBehavior behavior,
         GameObject rawItem,
         GameObject cookedItem,
