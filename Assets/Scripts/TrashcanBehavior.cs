@@ -17,11 +17,11 @@ public class TrashcanBehavior : MonoBehaviour
     {
         _audioSource.PlayOneShot(_audioSource.clip);
         Transform t = e.interactableObject.transform;
-        GameObject parent = t.GetComponent<CookableBehavior>().Parent;
+        var cookable = t.GetComponent<CookableBehavior>();
         Destroy(t.gameObject);
-        if (parent != null)
+        if (cookable != null)
         {
-            Destroy(parent);
+            Destroy(cookable.Parent);
         }
     }
 }
