@@ -123,6 +123,71 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &471829381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5408976194159569298, guid: cf83246b06f43794d9339e1df0cd98f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 758709067}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &471829387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471829381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_PositionInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Position Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 29ee7c5d-7fc5-4bcf-98ab-ee5ace16b5ba
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 7862207684358717888, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+  m_RotationInput:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Rotation Input
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6c740fc3-85f3-417d-b87c-7675bfe85ba2
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -530380113134220495, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+  m_PositionAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_RotationAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_HasMigratedActions: 1
 --- !u!65 &502353311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -162,6 +227,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_VolumeLayerMask.m_Bits
       value: 823
+      objectReference: {fileID: 0}
+    - target: {fileID: 580347155738957244, guid: cf83246b06f43794d9339e1df0cd98f6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1323981886222902172, guid: cf83246b06f43794d9339e1df0cd98f6,
         type: 3}
@@ -271,6 +341,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5116101951395914811, guid: cf83246b06f43794d9339e1df0cd98f6,
+        type: 3}
+      propertyPath: m_Device
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5116101951395914811, guid: cf83246b06f43794d9339e1df0cd98f6,
+        type: 3}
+      propertyPath: m_PoseSource
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5116101951395914811, guid: cf83246b06f43794d9339e1df0cd98f6,
+        type: 3}
+      propertyPath: m_UseRelativeTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5140434048257687142, guid: cf83246b06f43794d9339e1df0cd98f6,
         type: 3}
