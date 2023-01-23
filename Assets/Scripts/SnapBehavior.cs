@@ -28,10 +28,10 @@ public class SnapBehavior : MonoBehaviour
 
     public void OnExitSelection(HoverExitEventArgs e)
     {
-        //Transform t = e.interactableObject.transform;
-        //var grab = t.gameObject.GetComponent<XRGrabInteractable>();
+        Transform t = e.interactableObject.transform;
+        var grab = t.gameObject.GetComponent<XRGrabInteractable>();
         //var help = new GameObject();
-        //grab.attachTransform = n;
+        grab.attachTransform = null;
         //grab.matchAttachPosition = true;
         //Debug.Log(t.gameObject.GetComponent<XRGrabInteractable>().attachTransform);
     }
