@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class StackingSocketInteractor : XRSocketInteractor
 {
+    internal Transform tran;
+
     public override bool CanHover(IXRHoverInteractable interactable)
     {
         var i2 = (XRBaseInteractable) interactable;

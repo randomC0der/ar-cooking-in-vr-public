@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8590709628186925000}
   - component: {fileID: 8590709628186924999}
   - component: {fileID: 8590709628186924998}
-  - component: {fileID: 8590709628186924997}
+  - component: {fileID: 8822044653404802540}
   m_Layer: 0
   m_Name: Snap Space
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8590709628186924995}
   m_LocalRotation: {x: 0.50000006, y: 0.49999997, z: 0.50000006, w: 0.49999997}
-  m_LocalPosition: {x: 0.0004, y: -0.0006, z: 0.0131}
-  m_LocalScale: {x: -0.020851763, y: 0.02086178, z: 0.02053277}
+  m_LocalPosition: {x: 0, y: 0, z: 0.013}
+  m_LocalScale: {x: 0.02085176, y: 0.02086178, z: 0.02053277}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,7 +95,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8590709628186924997
+--- !u!114 &8822044653404802540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8590709628186924995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 454d2640054b48c489cc73a9f3790165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
