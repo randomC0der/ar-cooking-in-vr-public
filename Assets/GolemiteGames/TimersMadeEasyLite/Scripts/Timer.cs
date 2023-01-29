@@ -249,11 +249,12 @@ public class Timer : MonoBehaviour
     {
         return timeRemaining;
     }
+
+    [ContextMenu(nameof(StartTimer))]
     public void StartTimer()
     {
         if (!timerRunning && !timerPaused)
         {
-            ResetTimer();
             timerRunning = true;
             if (countMethod == CountMethod.CountDown)
             {
@@ -265,6 +266,13 @@ public class Timer : MonoBehaviour
             }
         }
     }
+
+    [ContextMenu(nameof(ContinueTimer))]
+    public void ContinueTimer()
+    {
+        timerRunning = false;
+    }
+
     private void StartTimerCustom(double timeToSet)
     {
         if(!timerRunning && !timerPaused)
@@ -273,13 +281,15 @@ public class Timer : MonoBehaviour
             timerRunning = true;
         }
     }
+
+    [ContextMenu(nameof(StopTimer))]
     public void StopTimer()
     {
         timerRunning = false;
-        ResetTimer();
     }
 
-    private void ResetTimer()
+    [ContextMenu(nameof(ResetTimer))]
+    public void ResetTimer()
     {
         timerPaused = false;
         
