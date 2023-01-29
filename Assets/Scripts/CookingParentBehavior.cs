@@ -13,6 +13,7 @@ public class CookingParentBehavior : MonoBehaviour
 {
     public GameObject rawItem;
     public GameObject cookedItem;
+    public GameObject burntItem;
     public GameObject fire;
     public float cookingTime;
     public float overCookingTime;
@@ -55,9 +56,21 @@ public class CookingParentBehavior : MonoBehaviour
         if (_timer > cookingTime + overCookingTime && _done.HasValue)
         {
             _done = null;
-            cookedItem.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
-            GameObject model = Instantiate(fire, transform);
-            cookedItem.GetComponent<CookableBehavior>().PlayBurning = true;
+
+            Vector3 scale = cookedItem.transform.localScale;
+            var burntGrabable = Instantiate(burntItem, transform).AddComponent<CookableBehavior>();
+            AttatchTransform = cookedItem.transform.Find("Attatch Transform").AttatchTo(burntGrabable.transform);
+            Destroy(cookedItem);
+            burntGrabable.transform.localScale = scale;
+            burntItem = burntGrabable.gameObject;
+            //burntItem.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
+
+            const bool projectMustBeRealistic = true;
+            if (!projectMustBeRealistic)
+            {
+                GameObject model = Instantiate(fire, transform);
+                burntItem.GetComponent<CookableBehavior>().PlayBurning = true;
+            }
         }
     }
 }
@@ -70,6 +83,7 @@ public static class CookingParentBehaviorExtension
     public static CookingParentBehavior PassParameter(this CookingParentBehavior behavior,
         GameObject rawItem,
         GameObject cookedItem,
+        GameObject burntItem,
         GameObject fire,
         float cookingTime,
         float overCookingTime,
@@ -79,6 +93,7 @@ public static class CookingParentBehaviorExtension
     {
         behavior.rawItem = rawItem;
         behavior.cookedItem = cookedItem;
+        behavior.burntItem = burntItem;
         behavior.fire = fire;
         behavior.cookingTime = cookingTime;
         behavior.overCookingTime = overCookingTime;

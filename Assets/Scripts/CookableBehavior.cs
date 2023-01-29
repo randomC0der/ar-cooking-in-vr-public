@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class CookableBehavior : MonoBehaviour
 {
     public GameObject cookedItem;
+    public GameObject burntItem;
     public GameObject fire;
     public float cookingTime = 10;
     public float overCookingTime = 10;
@@ -49,7 +50,7 @@ public class CookableBehavior : MonoBehaviour
         {
             Parent = new GameObject("Cookable Parent");
             _parentBehavior = Parent.AddComponent<CookingParentBehavior>()
-                .PassParameter(gameObject, cookedItem, fire, cookingTime, overCookingTime, cookingClip, burningClip, ignitionClip);
+                .PassParameter(gameObject, cookedItem, burntItem, fire, cookingTime, overCookingTime, cookingClip, burningClip, ignitionClip);
             transform.parent = Parent.transform;
             CookingAudioSource.clip = cookingClip;
             _burningAudioSource.clip = burningClip;
