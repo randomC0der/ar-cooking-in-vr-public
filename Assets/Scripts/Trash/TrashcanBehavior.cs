@@ -17,6 +17,13 @@ public class TrashcanBehavior : MonoBehaviour
     {
         _audioSource.PlayOneShot(_audioSource.clip);
         Transform t = e.interactableObject.transform;
+
+        var trashable = t.GetComponent<TrashableBehavior>();
+        if (trashable != null)
+        {
+            trashable.FinishTask();
+        }
+
         var cookable = t.GetComponent<CookableBehavior>();
         Destroy(t.gameObject);
         if (cookable != null)

@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 
@@ -10,20 +10,33 @@ public class TaskManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _text;
 
-    // Start is called before the first frame update
-    void Start()
+    // sonst ist es nicht anders möglich auf die property zuzugreifen
+    private PropertyInfo _taskFinished;
+
+    private void Start()
     {
-        _tasks.Add(new Task("This is a test"));
+        UpdateText();
+        _taskFinished = typeof(Task).GetProperty(nameof(Task.Finished));
     }
 
-    private void Update()
+    // Only update text if needed for better performance
+    private void UpdateText()
     {
-        _text.text = string.Join("\n", _tasks.Select(x => x.Text));
+        _text.text = string.Join("\n", _tasks.Select(x =>
+        {
+            if (x.Finished)
+            {
+                return $"<s>{x.Text}</s>";
+            }
+            return x.Text;
+        }));
+        _text.ForceMeshUpdate(true);
     }
 
     public void FinishTask(Task task)
     {
-
+        _taskFinished.SetValue(task, true);
+        UpdateText();
     }
 
     public Task CreateTask(string text)
@@ -34,19 +47,20 @@ public class TaskManager : MonoBehaviour
         return task;
     }
 
+    public void RemoveTask(Task task)
+    {
+        _tasks.Remove(task);
+        UpdateText();
+    }
+
     public class Task
     {
         public string Text { get; }
-        public bool Finished { get; private set; } = true;
+        public bool Finished { get; private set; }
 
         public Task(string text)
         {
             Text = text;
-        }
-
-        public void FinishTask()
-        {
-            Finished = false;
         }
 
     }
