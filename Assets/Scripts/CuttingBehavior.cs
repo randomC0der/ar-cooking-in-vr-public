@@ -13,6 +13,9 @@ public class CuttingBehavior : MonoBehaviour
     [Tooltip("Attatch transform for the cutObject")]
     private Transform _attatchTransform;
 
+    public Action<Collider> OnTriggerEnterAction { get; set; }
+    public Action<Collider> OnTriggerExitAction { get; set; }
+
     GrabableGameObject grabable;
 
     // Start is called before the first frame update
@@ -21,6 +24,16 @@ public class CuttingBehavior : MonoBehaviour
         grabable = gameObject.AddGrabableComponents();
         grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cuttable");
         _attatchTransform = transform.Find("AttatchTransformCut");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        OnTriggerEnterAction?.Invoke(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        OnTriggerExitAction?.Invoke(other);
     }
 
 
