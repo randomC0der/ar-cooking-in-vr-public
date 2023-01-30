@@ -7,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class PlateBehavior : MonoBehaviour
 {
     private GameObject _snapSpace;
-    private List<SnapSpace> _children = new List<SnapSpace>();
+    private readonly List<SnapSpace> _children = new List<SnapSpace>();
     private AudioSource _audioSource;
 
     // Start is called before the first frame update
