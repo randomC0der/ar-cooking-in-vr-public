@@ -9,12 +9,16 @@ public class PlateBehavior : MonoBehaviour
     private GameObject _snapSpace;
     private readonly List<SnapSpace> _children = new List<SnapSpace>();
     private AudioSource _audioSource;
+    private Receipe[] _receipes;
 
     // Start is called before the first frame update
     void Start()
     {
         _snapSpace = Resources.Load<GameObject>("Snap Space");
         _audioSource = gameObject.GetComponent<AudioSource>();
+
+        TextAsset textAsset = Resources.Load<TextAsset>("Recipes");
+        _receipes = JsonUtility.FromJson<ReceipeBook>(textAsset.text).recipes;
 
         CreateSnapSpace();
     }
@@ -46,6 +50,22 @@ public class PlateBehavior : MonoBehaviour
     void EnableNextLevel(SelectEnterEventArgs e)
     {
         _audioSource.Play();
+
+        // check for matching crafting recipe
+        foreach (Receipe receipe in _receipes.Where(x => x.ingredients.Length == _children.Count))
+        {
+            for (int i = 0; i < _children.Count; i++)
+            {
+                if (_children[i].GameObject.GetComponent<StackableBehavior>().ingredient != receipe.ingredients[i])
+                {
+                    break;
+                }
+                // match found
+
+            }
+        }
+
+        // add more socket interactors 
         if (_children.All(x => x.Interactor.hasSelection))
         {
             var snapSpace = CreateSnapSpace();
@@ -53,6 +73,7 @@ public class PlateBehavior : MonoBehaviour
             return;
         }
 
+        // enable next sockets
         var nextItem = _children.Select((x, i) => (x, i)).FirstOrDefault(x => !x.x.Interactor.socketActive);
         if (nextItem.x.GameObject == null) // default
         {

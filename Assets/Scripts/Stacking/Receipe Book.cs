@@ -1,18 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReceipeBook : MonoBehaviour
+[Serializable]
+class ReceipeBook
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Receipe[] recipes;
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+[Serializable]
+class Receipe
+{
+    /// <see cref="StackableBehavior.ingredient"/>
+    public string[] ingredients;
+    /// <summary>
+    /// Resource name of the result
+    /// </summary>
+    public string product;
 }

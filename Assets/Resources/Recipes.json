@@ -1,0 +1,11 @@
+{
+  "recipes": [
+    {
+      "ingredients": [
+        "bun",
+        "patty"
+      ],
+      "product":  "burger"
+    }
+  ]
+}
