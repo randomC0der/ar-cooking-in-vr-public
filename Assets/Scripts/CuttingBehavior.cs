@@ -13,6 +13,8 @@ public class CuttingBehavior : MonoBehaviour
     [Tooltip("Attatch transform for the cutObject")]
     private Transform _attatchTransform;
 
+    public string ingredient;
+
     public Action<Collider> OnTriggerEnterAction { get; set; }
     public Action<Collider> OnTriggerExitAction { get; set; }
 
@@ -52,6 +54,7 @@ public class CuttingBehavior : MonoBehaviour
         }
 
         GrabableGameObject grabableLettuce = lettuce.AddGrabableComponents();
+        lettuce.AddComponent<StackableBehavior>().ingredient = ingredient;
         grabableLettuce.Rigidbody.mass = .1f;
         lettuce.transform.position = gameObject.transform.position;
         lettuce.transform.localScale = gameObject.transform.localScale;

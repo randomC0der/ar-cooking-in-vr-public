@@ -54,14 +54,18 @@ public class PlateBehavior : MonoBehaviour
         // check for matching crafting recipe
         foreach (Receipe receipe in _receipes.Where(x => x.ingredients.Length == _children.Count))
         {
-            for (int i = 0; i < _children.Count; i++)
-            {
-                if (_children[i].GameObject.GetComponent<StackableBehavior>().ingredient != receipe.ingredients[i])
-                {
-                    break;
-                }
-                // match found
+            bool match = Enumerable.Range(0, _children.Count)
+                .Select(i => _children[i].Interactor.interactablesSelected[0].transform.gameObject.GetComponent<StackableBehavior>().ingredient == receipe.ingredients[i])
+                .All(x => x);
 
+            // match found
+            if (match)
+            {
+                GameObject product = Resources.Load<GameObject>(receipe.product);
+                // todo: remove
+                product = Instantiate(product);
+                product.transform.position = transform.position;
+                return;
             }
         }
 
