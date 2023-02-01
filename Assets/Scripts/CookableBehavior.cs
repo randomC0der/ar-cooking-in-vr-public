@@ -11,6 +11,7 @@ public class CookableBehavior : MonoBehaviour
     public GameObject fire;
     public float cookingTime = 10;
     public float overCookingTime = 10;
+    public string ingredientTag;
 
     [Tooltip("Looping sound clip that is played during cooking")]
     public AudioClip cookingClip;
@@ -41,6 +42,8 @@ public class CookableBehavior : MonoBehaviour
 
         _ignitionAudioSource = gameObject.AddComponent<AudioSource>();
 
+        var stackable = gameObject.AddComponent<StackableBehavior>();
+
         GrabableGameObject grabable = gameObject.AddGrabableComponents(false);
         grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
         grabable.XrGrab.useDynamicAttach = true;
@@ -50,11 +53,12 @@ public class CookableBehavior : MonoBehaviour
         {
             Parent = new GameObject("Cookable Parent");
             _parentBehavior = Parent.AddComponent<CookingParentBehavior>()
-                .PassParameter(gameObject, cookedItem, burntItem, fire, cookingTime, overCookingTime, cookingClip, burningClip, ignitionClip);
+                .PassParameter(gameObject, cookedItem, burntItem, fire, cookingTime, overCookingTime, cookingClip, burningClip, ignitionClip, ingredientTag);
             transform.parent = Parent.transform;
             CookingAudioSource.clip = cookingClip;
             _burningAudioSource.clip = burningClip;
             _ignitionAudioSource.clip = ignitionClip;
+            stackable.ingredient = ingredientTag;
         }
         else // aus dem Parent
         {
@@ -65,6 +69,7 @@ public class CookableBehavior : MonoBehaviour
             _burningAudioSource.clip = _parentBehavior.burningClip;
             _ignitionAudioSource.clip = _parentBehavior.ignitionClip;
             grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
+            stackable.ingredient = _parentBehavior.ingredientTag;
         }
     }
 

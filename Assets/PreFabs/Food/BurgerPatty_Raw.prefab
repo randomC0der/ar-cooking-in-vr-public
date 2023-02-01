@@ -103,6 +103,7 @@ MonoBehaviour:
   fire: {fileID: 100000, guid: edc2f41de4b44814db2f82b748c3f682, type: 3}
   cookingTime: 2
   overCookingTime: 2
+  ingredientTag: patty
   cookingClip: {fileID: 8300000, guid: 73a96358989b40c49b3f1b6eeb6503ef, type: 3}
   ignitionClip: {fileID: 8300000, guid: d2bf934a773ebf2408532aa2a80bf21b, type: 3}
   burningClip: {fileID: 8300000, guid: 686ccda0b6f279e42af3eb139ac98d9d, type: 3}

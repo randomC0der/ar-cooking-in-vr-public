@@ -17,6 +17,7 @@ public class CookingParentBehavior : MonoBehaviour
     public GameObject fire;
     public float cookingTime;
     public float overCookingTime;
+    public string ingredientTag;
 
     public AudioClip cookingClip;
     public AudioClip burningClip;
@@ -87,7 +88,8 @@ public static class CookingParentBehaviorExtension
         float overCookingTime,
         AudioClip cookingClip,
         AudioClip burningClip,
-        AudioClip ignitionClip)
+        AudioClip ignitionClip,
+        string ingredientTag)
     {
         behavior.rawItem = rawItem;
         behavior.cookedItem = cookedItem;
@@ -98,6 +100,7 @@ public static class CookingParentBehaviorExtension
         behavior.cookingClip = cookingClip;
         behavior.burningClip = burningClip;
         behavior.ignitionClip = ignitionClip;
+        behavior.ingredientTag = ingredientTag;
         return behavior;
     }
 }

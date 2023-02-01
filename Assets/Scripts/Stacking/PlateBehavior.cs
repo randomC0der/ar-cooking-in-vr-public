@@ -62,7 +62,12 @@ public class PlateBehavior : MonoBehaviour
             if (match)
             {
                 GameObject product = Resources.Load<GameObject>(receipe.product);
-                // todo: remove
+                
+                foreach(var child in _children)
+                {
+                    Destroy(child.Interactor.interactablesSelected[0].transform.gameObject);
+                }
+
                 product = Instantiate(product);
                 product.transform.position = transform.position;
                 return;
