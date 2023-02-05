@@ -884,6 +884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 371858329}
   - component: {fileID: 371858328}
+  - component: {fileID: 371858330}
   m_Layer: 0
   m_Name: GameTaskManager
   m_TagString: Untagged
@@ -905,6 +906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _taskBoard: {fileID: 0}
   _directionMarkerPrefab: {fileID: 0}
+  _tasks: []
 --- !u!4 &371858329
 Transform:
   m_ObjectHideFlags: 0
@@ -919,6 +921,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &371858330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371858327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63e0f307fd518544be995454749240f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameObjects:
+  - {fileID: 1489890662}
+  _markers: []
+  Task: 1
 --- !u!1001 &544877282
 PrefabInstance:
   m_ObjectHideFlags: 0
