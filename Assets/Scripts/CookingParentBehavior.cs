@@ -46,7 +46,7 @@ public class CookingParentBehavior : MonoBehaviour
         {
             _done = true;
             Vector3 scale = rawItem.transform.localScale;
-            var cookedGrabable = Instantiate(cookedItem, transform).AddComponent<CookableBehavior>();
+            CookableBehavior cookedGrabable = Instantiate(cookedItem, transform).AddComponent<CookableBehavior>();
             AttatchTransform = rawItem.transform.Find("Attatch Transform").AttatchTo(cookedGrabable.transform);
             Destroy(rawItem);
             //IsCooking = true; // still cooking
@@ -59,16 +59,16 @@ public class CookingParentBehavior : MonoBehaviour
             _done = null;
 
             Vector3 scale = cookedItem.transform.localScale;
-            var burntGrabable = Instantiate(burntItem, transform).AddComponent<CookableBehavior>();
+            CookableBehavior burntGrabable = Instantiate(burntItem, transform).AddComponent<CookableBehavior>();
             AttatchTransform = cookedItem.transform.Find("Attatch Transform").AttatchTo(burntGrabable.transform);
             Destroy(cookedItem);
             burntGrabable.transform.localScale = scale;
             burntItem = burntGrabable.gameObject;
-            burntItem.GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
+            burntGrabable.Burnt = true;
 
 #if false // aktuell nicht gewünscht
             GameObject model = Instantiate(fire, transform);
-            burntItem.GetComponent<CookableBehavior>().PlayBurning = true;
+            burntGrabable.PlayBurning = true;
 #endif
         }
     }

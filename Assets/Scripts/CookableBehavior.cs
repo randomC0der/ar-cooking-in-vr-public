@@ -22,6 +22,7 @@ public class CookableBehavior : MonoBehaviour
     [Tooltip("Sound clip that is played during burning")]
     public AudioClip burningClip;
 
+    public bool Burnt { get; set; }
     public bool PlayBurning { get; set; }
 
     public GameObject Parent { get; private set; }
@@ -68,7 +69,11 @@ public class CookableBehavior : MonoBehaviour
             CookingAudioSource.clip = _parentBehavior.cookingClip;
             _burningAudioSource.clip = _parentBehavior.burningClip;
             _ignitionAudioSource.clip = _parentBehavior.ignitionClip;
-            grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
+            if (!Burnt)
+            {
+                grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
+            }
+
             stackable.ingredient = _parentBehavior.ingredientTag;
         }
     }
@@ -96,6 +101,7 @@ public class CookableBehavior : MonoBehaviour
             _ignitionAudioSource.PlayOneShot(_ignitionAudioSource.clip, 3f);
             _burningAudioSource.Play();
             PlayBurning = false;
+            GetComponent<XRGrabInteractable>().interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
         }
     }
 }
