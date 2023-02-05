@@ -22,7 +22,8 @@ public class CookableBehavior : MonoBehaviour
     [Tooltip("Sound clip that is played during burning")]
     public AudioClip burningClip;
 
-    public bool Burnt { get; set; }
+    public float PassedTime => _parentBehavior.PassedTime;
+    public bool? Done => _parentBehavior.Done;
     public bool PlayBurning { get; set; }
 
     public GameObject Parent { get; private set; }
@@ -69,7 +70,9 @@ public class CookableBehavior : MonoBehaviour
             CookingAudioSource.clip = _parentBehavior.cookingClip;
             _burningAudioSource.clip = _parentBehavior.burningClip;
             _ignitionAudioSource.clip = _parentBehavior.ignitionClip;
-            if (!Burnt)
+            cookingTime = _parentBehavior.cookingTime;
+            overCookingTime = _parentBehavior.overCookingTime;
+            if (Done.HasValue)
             {
                 grabable.XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
             }

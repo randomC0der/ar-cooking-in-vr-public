@@ -4,50 +4,46 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-/// <summary>
-/// Inspired by https://www.youtube.com/watch?v=5xWDKJj1UGY
-/// </summary>
 public class TimerBehavior : MonoBehaviour
 {
-    public float indicatorTimer = 0;
-    public float maxIndicatorTimer = 1;
-    public float overMaxIndicatorTimer = 1;
+    public Color color1;
+    public Color color2;
 
-    public Image radialIndicatorUI1;
-    public Image radialIndicatorUI2;
+    public double TimeRemaining
+    {
+        get => _timer.timeRemaining;
+        set => _timer.timeRemaining = value;
+    }
 
-    public bool running;
+    public void SetTimer(double value)
+    {
+        _timer.minutes = (int)value / 60;
+        _timer.seconds = ((int)value) % 60;
+    }
+
+    public bool Visible
+    {
+        get => gameObject.activeSelf;
+        set => gameObject.SetActive(value);
+    }
+
+    private Timer _timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        radialIndicatorUI1.fillAmount = 0;
-        radialIndicatorUI2.fillAmount = 0;
-        StartRunning();
+        _timer = FindObjectOfType<Timer>();
     }
 
-    [ContextMenu("Start running")]
+    [ContextMenu(nameof(StartRunning))]
     public void StartRunning()
     {
-        running = true;
+        _timer.StartTimer();
     }
 
-    // Update is called once per frame
-    void Update()
+    [ContextMenu(nameof(PauseRunning))]
+    public void PauseRunning()
     {
-        if (!running)
-        {
-            return;
-        }
-
-        radialIndicatorUI1.fillAmount = indicatorTimer / maxIndicatorTimer;
-        radialIndicatorUI2.fillAmount = (indicatorTimer - maxIndicatorTimer) / overMaxIndicatorTimer;
-
-        if (indicatorTimer >= maxIndicatorTimer + overMaxIndicatorTimer)
-        {
-            running = false;
-        }
-
-        indicatorTimer += Time.deltaTime;
+        _timer.StopTimer();
     }
 }

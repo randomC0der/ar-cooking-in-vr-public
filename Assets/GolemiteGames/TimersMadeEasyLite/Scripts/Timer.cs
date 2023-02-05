@@ -59,9 +59,9 @@ public class Timer : MonoBehaviour
     public Slider standardSlider;
     public Image dialSlider;
 
-    bool timerRunning = false;
+    public bool timerRunning { get; private set; } = false;
     bool timerPaused = false;
-    public double timeRemaining;
+    public double timeRemaining { get; set; }
     
 
     private void Awake()
@@ -364,7 +364,7 @@ public class Timer : MonoBehaviour
             if (minutesDisplay)
             {
                 string minutesFormatted;
-                minutesFormatted = string.Format("{0:00}", minutes);
+                minutesFormatted = string.Format("{0:0} min", minutes);
                 if (secondsDisplay)
                     minutesFormatted += ":";
                 return minutesFormatted;
@@ -381,7 +381,7 @@ public class Timer : MonoBehaviour
             }
             return null;
         }
-        
+
 
         convertedNumber = HoursFormat() + MinutesFormat() + SecondsFormat();
 
