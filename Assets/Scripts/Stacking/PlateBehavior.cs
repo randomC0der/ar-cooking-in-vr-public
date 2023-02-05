@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlateBehavior : MonoBehaviour
@@ -52,31 +54,11 @@ public class PlateBehavior : MonoBehaviour
         _audioSource.Play();
 
         // check for matching crafting recipe
-        foreach (Receipe receipe in _receipes.Where(x => x.ingredients.Length == _children.Count))
+        foreach (Receipe receipe in _receipes.Where(x => x.ingredients.Length == _children.Count)
+            .Where(receipe => IsReceipeFinished(receipe)))
         {
-            bool match = true;
-            for (int i = 0; i < _children.Count; i++)
-            {
-                if (_children[i].Interactor.interactablesSelected[0].transform.gameObject.GetComponent<StackableBehavior>().ingredient == receipe.ingredients[i])
-                {
-                    match = false;
-                }
-            }
-
-            // match found
-            if (match)
-            {
-                GameObject product = Resources.Load<GameObject>(receipe.product);
-                
-                foreach(var child in _children)
-                {
-                    Destroy(child.Interactor.interactablesSelected[0].transform.gameObject);
-                }
-
-                product = Instantiate(product);
-                product.transform.position = transform.position;
-                return;
-            }
+            TransformIngredients(receipe);
+            return;
         }
 
         // add more socket interactors 
@@ -95,6 +77,33 @@ public class PlateBehavior : MonoBehaviour
             return;
         }
         _children[nextItem.i].Interactor.socketActive = true;
+    }
+
+    bool IsReceipeFinished(Receipe receipe)
+    {
+        for (int i = 0; i < _children.Count; i++)
+        {
+            if (_children[i].Interactor.firstInteractableSelected?.transform.gameObject
+                .GetComponent<StackableBehavior>().ingredient == receipe.ingredients[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void TransformIngredients(Receipe receipe)
+    {
+        GameObject product = Resources.Load<GameObject>(receipe.product);
+
+        foreach (var gameobj in _children.Select(child => child.Interactor.firstInteractableSelected?.transform.gameObject)
+            .Where(x => x != null))
+        {
+            Destroy(gameobj);
+        }
+
+        product = Instantiate(product);
+        product.transform.position = transform.position;
     }
 
     void DisableNextLevel(SelectExitEventArgs e)
