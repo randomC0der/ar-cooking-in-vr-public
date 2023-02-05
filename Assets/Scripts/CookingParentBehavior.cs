@@ -24,9 +24,10 @@ public class CookingParentBehavior : MonoBehaviour
     public AudioClip ignitionClip;
 
     private float _timer;
-    private bool? _done = false; // null means it's overcooked
+    public bool? Done { get; private set; } = false; // null means it's overcooked
 
     public bool IsCooking { get; set; }
+    public float PassedTime => _timer;
 
     /// <summary>
     /// Transformation, damit das Objekt richtig an den XR controller / sockets attatched wird
@@ -42,9 +43,9 @@ public class CookingParentBehavior : MonoBehaviour
 
         _timer += Time.deltaTime;
 
-        if (_timer > cookingTime && !_done.GetValueOrDefault(true))
+        if (_timer > cookingTime && !Done.GetValueOrDefault(true))
         {
-            _done = true;
+            Done = true;
             Vector3 scale = rawItem.transform.localScale;
             CookableBehavior cookedGrabable = Instantiate(cookedItem, transform).AddComponent<CookableBehavior>();
             AttatchTransform = rawItem.transform.Find("Attatch Transform").AttatchTo(cookedGrabable.transform);
@@ -54,9 +55,9 @@ public class CookingParentBehavior : MonoBehaviour
             cookedItem = cookedGrabable.gameObject;
         }
 
-        if (_timer > cookingTime + overCookingTime && _done.HasValue)
+        if (_timer > cookingTime + overCookingTime && Done.HasValue)
         {
-            _done = null;
+            Done = null;
 
             Vector3 scale = cookedItem.transform.localScale;
             CookableBehavior burntGrabable = Instantiate(burntItem, transform).AddComponent<CookableBehavior>();
@@ -64,7 +65,6 @@ public class CookingParentBehavior : MonoBehaviour
             Destroy(cookedItem);
             burntGrabable.transform.localScale = scale;
             burntItem = burntGrabable.gameObject;
-            burntGrabable.Burnt = true;
 
 #if false // aktuell nicht gewünscht
             GameObject model = Instantiate(fire, transform);

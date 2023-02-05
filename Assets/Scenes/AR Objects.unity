@@ -671,6 +671,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187064391312095956, guid: ff83fa5e49e76504e8f2942e3ca54222,
         type: 3}
+      propertyPath: hoursDisplay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187064391312095956, guid: ff83fa5e49e76504e8f2942e3ca54222,
+        type: 3}
       propertyPath: timeRemaining
       value: 65
       objectReference: {fileID: 0}
@@ -682,12 +687,12 @@ PrefabInstance:
     - target: {fileID: 8187064391312095956, guid: ff83fa5e49e76504e8f2942e3ca54222,
         type: 3}
       propertyPath: secondsDisplay
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8187064391312095956, guid: ff83fa5e49e76504e8f2942e3ca54222,
         type: 3}
       propertyPath: startAtRuntime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff83fa5e49e76504e8f2942e3ca54222, type: 3}
