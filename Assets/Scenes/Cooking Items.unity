@@ -695,7 +695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &371858328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4576,18 +4576,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.28
       objectReference: {fileID: 0}
-    - target: {fileID: 4550209810625335348, guid: fba52c2bc8e1cae4196de1314d3cc69b,
-        type: 3}
-      propertyPath: _burntItem
-      value: 
-      objectReference: {fileID: 615652627941233783, guid: 06882de05db47d14b82803a0c328d2e9,
-        type: 3}
-    - target: {fileID: 4550209810625335348, guid: fba52c2bc8e1cae4196de1314d3cc69b,
-        type: 3}
-      propertyPath: _cookedItem
-      value: 
-      objectReference: {fileID: 8283410601810568042, guid: bb804e84a9d73e040b5a601049c352d2,
-        type: 3}
     - target: {fileID: 8678946569501079516, guid: fba52c2bc8e1cae4196de1314d3cc69b,
         type: 3}
       propertyPath: m_RootOrder

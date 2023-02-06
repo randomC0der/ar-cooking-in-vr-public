@@ -15,7 +15,7 @@ public class TrashcanBehavior : MonoBehaviour
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        _gameBehavior = GameObject.Find("GameTaskManager").GetComponent<GameBehavior>();
+        _gameBehavior = GameObject.Find("GameTaskManager")?.GetComponent<GameBehavior>();
     }
 
     public void EmptyTrashcan(SelectEnterEventArgs e)
@@ -29,7 +29,7 @@ public class TrashcanBehavior : MonoBehaviour
             _taskCounter++;
             if (_taskCounter >= 1)
             {
-                _gameBehavior.FinishTask(Task.CleanUp);
+                _gameBehavior?.FinishTask(Task.CleanUp);
             } 
         }
 
