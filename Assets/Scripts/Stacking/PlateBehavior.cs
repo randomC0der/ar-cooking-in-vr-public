@@ -9,7 +9,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 // for the performance of the crafting see this video: https://www.youtube.com/watch?v=o4-zpAI7qBc
 public class PlateBehavior : MonoBehaviour
 {
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] 
+    private AudioSource _audioSource;
+    [SerializeField]
     private GameObject _snapSpace;
     private readonly List<SnapSpace> _children = new List<SnapSpace>();
     private Receipe[] _receipes;
@@ -17,17 +19,21 @@ public class PlateBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _snapSpace = Resources.Load<GameObject>("Snap Space");
-
         TextAsset textAsset = Resources.Load<TextAsset>("Recipes");
         _receipes = JsonUtility.FromJson<ReceipeBook>(textAsset.text).recipes;
 
-        CreateSnapSpace();
+        AddSnapSpace(_snapSpace.GetComponent<SnapBehavior>());
+        //CreateSnapSpace();
     }
 
     SnapSpace CreateSnapSpace()
     {
         var snapSpace = Instantiate(_snapSpace, transform).GetComponent<SnapBehavior>();
+        return AddSnapSpace(snapSpace);
+    }
+
+    private SnapSpace AddSnapSpace(SnapBehavior snapSpace)
+    {
         snapSpace.name = $"SnapSpace {_children.Count}";
         snapSpace.AudioSource = _audioSource;
 

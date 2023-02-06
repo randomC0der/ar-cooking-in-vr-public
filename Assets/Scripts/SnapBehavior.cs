@@ -30,14 +30,14 @@ public class SnapBehavior : MonoBehaviour
 
     public void OnEnterHover(HoverEnterEventArgs e)
     {
-        Transform t = e.interactableObject.transform;
-        var grab = (XRGrabInteractable)e.interactableObject;
-        grab.attachTransform = t.Find("Attatch Transform");
+        //Transform t = e.interactableObject.transform;
+        //var grab = (XRGrabInteractable)e.interactableObject;
+        //grab.attachTransform = t.Find("Attatch Transform");
     }
 
     public void OnExitHover(HoverExitEventArgs e)
     {
-        var grab = (XRGrabInteractable)e.interactableObject;
-        grab.attachTransform = null;
+        //var grab = (XRGrabInteractable)e.interactableObject;
+        //grab.attachTransform = null;
     }
 }

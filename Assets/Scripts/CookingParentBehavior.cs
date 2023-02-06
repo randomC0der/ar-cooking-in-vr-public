@@ -55,25 +55,16 @@ public class CookingParentBehavior : MonoBehaviour
         if (PassedTime > cookingTime && !Done.GetValueOrDefault(true))
         {
             Done = true;
-            Vector3 scale = _rawItem.transform.localScale;
             var cooked = Instantiate(_cookedItem, transform);
             Destroy(_rawItem);
-            _xrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
-            cooked.transform.localScale = scale;
-            _cookedItem = cooked.gameObject;
             OnCookingStatusChanged?.Invoke(this);
         }
 
         if (PassedTime > cookingTime + overCookingTime && Done.HasValue)
         {
             Done = null;
-
-            Vector3 scale = _cookedItem.transform.localScale;
             var burnt = Instantiate(_burntItem, transform);
             Destroy(_cookedItem);
-            _xrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
-            burnt.transform.localScale = scale;
-            _burntItem = burnt.gameObject;
             OnCookingStatusChanged?.Invoke(this);
 
 #if false // aktuell nicht gewünscht
