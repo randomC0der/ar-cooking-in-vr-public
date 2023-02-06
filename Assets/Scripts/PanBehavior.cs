@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class PanBehavior : MonoBehaviour
 {
     [SerializeField] private TimerBehavior _timer;
+    private Image img;
 
     // Start is called before the first frame update
     void Start()
     {
         _timer.Visible = false;
+        img = GameObject.Find("TimeDial").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -30,6 +33,7 @@ public class PanBehavior : MonoBehaviour
 
         cookable.StartCooking();
         cookable.OnCookingStatusChanged = UpdateTimer;
+        cookable.XrGrab.attachTransform = cookable.transform.Find("Attatch Transform");
 
         UpdateTimer(cookable);
 
@@ -44,11 +48,13 @@ public class PanBehavior : MonoBehaviour
         {
             _timer.SetTimer(cookable.overCookingTime);
             _timer.TimeRemaining = cookable.overCookingTime + cookable.cookingTime - cookable.PassedTime;
+            img.color = _timer.color2;
         }
         else if (cookable.Done == false)
         {
             _timer.SetTimer(cookable.cookingTime);
             _timer.TimeRemaining = cookable.cookingTime - cookable.PassedTime;
+            img.color = _timer.color1;
         }
         else
         {
@@ -66,6 +72,7 @@ public class PanBehavior : MonoBehaviour
             return;
         }
 
+        cookable.XrGrab.attachTransform = null;
         cookable.StopCooking();
         _timer.Visible = false;
         _timer.PauseRunning();

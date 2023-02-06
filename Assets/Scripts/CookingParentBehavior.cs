@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 
 /// <summary>
@@ -31,8 +32,9 @@ public class CookingParentBehavior : MonoBehaviour
     [Tooltip("Looping sound clip that is played during cooking")]
     private AudioSource _cookingAudioSource;
 
-    [SerializeField]
-    private XRGrabInteractable _xrGrab;
+    [field: FormerlySerializedAs("_xrGrab")]
+    [field: SerializeField]
+    public XRGrabInteractable XrGrab { get; private set; }
 
     public bool? Done { get; private set; } = false; // null means it's overcooked
     public Action<CookingParentBehavior> OnCookingStatusChanged { get; set; }

@@ -59,9 +59,9 @@ public class Timer : MonoBehaviour
     public Slider standardSlider;
     public Image dialSlider;
 
-    public bool timerRunning { get; private set; } = false;
+    public bool timerRunning = false;
     bool timerPaused = false;
-    public double timeRemaining { get; set; }
+    public double timeRemaining;
     
 
     private void Awake()
