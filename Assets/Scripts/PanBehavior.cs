@@ -29,26 +29,32 @@ public class PanBehavior : MonoBehaviour
         }
 
         cookable.StartCooking();
+        cookable.OnCookingStatusChanged = UpdateTimer;
 
+        UpdateTimer(cookable);
+
+        _timer.Visible = true;
+    }
+
+    private void UpdateTimer(CookingParentBehavior cookable)
+    {
         _timer.StartRunning();
 
         if (cookable.Done == true)
         {
             _timer.SetTimer(cookable.overCookingTime);
-            _timer.TimeRemaining = (cookable.overCookingTime + cookable.cookingTime - cookable.PassedTime);
+            _timer.TimeRemaining = cookable.overCookingTime + cookable.cookingTime - cookable.PassedTime;
         }
         else if (cookable.Done == false)
         {
             _timer.SetTimer(cookable.cookingTime);
-            _timer.TimeRemaining = (cookable.cookingTime - cookable.PassedTime);
+            _timer.TimeRemaining = cookable.cookingTime - cookable.PassedTime;
         }
         else
         {
             _timer.SetTimer(1);
             _timer.TimeRemaining = 0.01;
         }
-
-        _timer.Visible = true;
     }
 
     public void ExitPanSnap(SelectExitEventArgs e)
