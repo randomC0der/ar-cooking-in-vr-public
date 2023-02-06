@@ -6,60 +6,54 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
-    private List<Task> _tasks = new List<Task>();
+    private List<TaskBoardTask> _tasks = new List<TaskBoardTask>();
     [SerializeField]
     private TextMeshProUGUI _text;
-
-    // sonst ist es nicht anders möglich auf die property zuzugreifen
-    private PropertyInfo _taskFinished;
 
     private void Start()
     {
         UpdateText();
-        _taskFinished = typeof(Task).GetProperty(nameof(Task.Finished));
     }
 
     // Only update text if needed for better performance
     private void UpdateText()
     {
-        _text.text = string.Join("\n", _tasks.Select(x =>
+        _text.text = string.Join("\n", _tasks.Select((x, y) =>
         {
-            if (x.Finished)
-            {
-                return $"<s>{x.Text}</s>";
-            }
-            return x.Text;
+            var taskText = $"Aufgabe {y+1}: {x.Text}";
+
+            return x.Finished ? $"<s>{taskText}</s>" : taskText;
         }));
         _text.ForceMeshUpdate(true);
     }
 
-    public void FinishTask(Task task)
+    public void FinishTask(TaskBoardTask task)
     {
         task.Finished = true;
         UpdateText();
     }
 
-    public Task CreateTask(string text)
+    public TaskBoardTask CreateTask(string text)
     {
-        var task = new Task(text);
+        var task = new TaskBoardTask(text);
         _tasks.Add(task);
         UpdateText();
 
         return task;
     }
 
-    public void RemoveTask(Task task)
+    public void RemoveTask(TaskBoardTask task)
     {
         _tasks.Remove(task);
         UpdateText();
     }
 
-    public class Task
+    public class TaskBoardTask
     {
         public string Text { get; }
         public bool Finished { get; internal set; }
 
-        public Task(string text)
+        public TaskBoardTask(string text)
         {
             Text = text;
         }

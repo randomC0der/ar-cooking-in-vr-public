@@ -6,10 +6,13 @@ using System.Linq;
 public class TaskBehavior : MonoBehaviour
 {
     [SerializeField]
-    protected List<GameObject> _gameObjects = new List<GameObject>();
+    private List<GameObject> _gameObjects = new List<GameObject>();
 
     [SerializeField]
-    protected List<GameObject> _markers;
+    private List<GameObject> _markers;
+
+    [SerializeField]
+    public string TaskText;
 
     public Task Task;
 
