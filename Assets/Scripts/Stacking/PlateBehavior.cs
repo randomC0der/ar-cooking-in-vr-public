@@ -6,18 +6,18 @@ using UnityEngine;
 using UnityEngine.InputSystem.HID;
 using UnityEngine.XR.Interaction.Toolkit;
 
+// for the performance of the crafting see this video: https://www.youtube.com/watch?v=o4-zpAI7qBc
 public class PlateBehavior : MonoBehaviour
 {
+    [SerializeField] private AudioSource _audioSource;
     private GameObject _snapSpace;
     private readonly List<SnapSpace> _children = new List<SnapSpace>();
-    private AudioSource _audioSource;
     private Receipe[] _receipes;
 
     // Start is called before the first frame update
     void Start()
     {
         _snapSpace = Resources.Load<GameObject>("Snap Space");
-        _audioSource = gameObject.GetComponent<AudioSource>();
 
         TextAsset textAsset = Resources.Load<TextAsset>("Recipes");
         _receipes = JsonUtility.FromJson<ReceipeBook>(textAsset.text).recipes;
@@ -27,17 +27,19 @@ public class PlateBehavior : MonoBehaviour
 
     SnapSpace CreateSnapSpace()
     {
-        var snapSpace = Instantiate(_snapSpace, transform);
+        var snapSpace = Instantiate(_snapSpace, transform).GetComponent<SnapBehavior>();
         snapSpace.name = $"SnapSpace {_children.Count}";
+        snapSpace.AudioSource = _audioSource;
 
         var child = new SnapSpace
         {
-            GameObject = snapSpace,
+            GameObject = snapSpace.gameObject,
             Interactor = snapSpace.GetComponent<StackingSocketInteractor>()
         };
 
         var selectEnterEvent = new SelectEnterEvent();
         selectEnterEvent.AddListener(EnableNextLevel);
+        selectEnterEvent.AddListener(snapSpace.OnEnterSelection);
         child.Interactor.selectEntered = selectEnterEvent;
 
         var selectExitEvent = new SelectExitEvent();
@@ -51,10 +53,8 @@ public class PlateBehavior : MonoBehaviour
 
     void EnableNextLevel(SelectEnterEventArgs e)
     {
-        _audioSource.Play();
-
         // check for matching crafting recipe
-        foreach (Receipe receipe in _receipes.Where(x => x.ingredients.Length == _children.Count)
+        foreach (Receipe receipe in _receipes.Where(x => x.ingredients.Length == _children.Count(y => y.Interactor.hasSelection))
             .Where(receipe => IsReceipeFinished(receipe)))
         {
             TransformIngredients(receipe);
@@ -81,10 +81,10 @@ public class PlateBehavior : MonoBehaviour
 
     bool IsReceipeFinished(Receipe receipe)
     {
-        for (int i = 0; i < _children.Count; i++)
+        for (int i = 0; i < receipe.ingredients.Length; i++)
         {
             if (_children[i].Interactor.firstInteractableSelected?.transform.gameObject
-                .GetComponent<StackableBehavior>().ingredient == receipe.ingredients[i])
+                .GetComponent<StackableBehavior>().ingredient != receipe.ingredients[i])
             {
                 return false;
             }
@@ -108,10 +108,11 @@ public class PlateBehavior : MonoBehaviour
 
     void DisableNextLevel(SelectExitEventArgs e)
     {
-        if (_children.Any(x => x.Interactor.socketActive && !x.Interactor.hasSelection && x.Interactor.transform != e.interactorObject.transform))
+        foreach (var i in _children.Select(x => x.Interactor).Where(x => !x.hasSelection))
         {
-            ((XRSocketInteractor)e.interactorObject).socketActive = false;
+            i.socketActive = false;
         }
+        _children.First(x => !x.Interactor.socketActive).Interactor.socketActive = true;
     }
 
     struct SnapSpace

@@ -5,34 +5,39 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SnapBehavior : MonoBehaviour
 {
+    [field: SerializeField]
+    public AudioSource AudioSource { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void OnEnterSelection(HoverEnterEventArgs e)
+    public void OnEnterSelection(SelectEnterEventArgs e)
+    {
+        AudioSource.Play();
+    }
+
+    // please note that if the interactableObject is so positioned that after applying the attatch transform
+    // it gets out of the collider, both events are triggered all the time resulting in glitching/teleportation
+
+    public void OnEnterHover(HoverEnterEventArgs e)
     {
         Transform t = e.interactableObject.transform;
-        var grab = t.gameObject.GetComponent<XRGrabInteractable>();
+        var grab = (XRGrabInteractable)e.interactableObject;
         grab.attachTransform = t.Find("Attatch Transform");
-        //grab.matchAttachPosition = false;
-        //Debug.Log(t.gameObject.GetComponent<XRGrabInteractable>().attachTransform);
     }
 
-    public void OnExitSelection(HoverExitEventArgs e)
+    public void OnExitHover(HoverExitEventArgs e)
     {
-        Transform t = e.interactableObject.transform;
-        var grab = t.gameObject.GetComponent<XRGrabInteractable>();
-        //var help = new GameObject();
+        var grab = (XRGrabInteractable)e.interactableObject;
         grab.attachTransform = null;
-        //grab.matchAttachPosition = true;
-        //Debug.Log(t.gameObject.GetComponent<XRGrabInteractable>().attachTransform);
     }
 }

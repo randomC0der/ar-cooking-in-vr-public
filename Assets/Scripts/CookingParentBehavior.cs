@@ -7,100 +7,89 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 /// <summary>
-/// Annahmen: <see cref="rawItem"/> und <see cref="cookedItem"/> müssen die gleiche Skalierung haben.
+/// Annahmen: <see cref="_rawItem"/> und <see cref="_cookedItem"/> müssen die gleiche Skalierung haben.
 /// </summary>
 public class CookingParentBehavior : MonoBehaviour
 {
-    public GameObject rawItem;
-    public GameObject cookedItem;
-    public GameObject burntItem;
-    public GameObject fire;
+    [SerializeField] private GameObject _rawItem;
+    [SerializeField] private GameObject _cookedItem;
+    [SerializeField] private GameObject _burntItem;
+    [SerializeField] private GameObject _fire;
+
     public float cookingTime;
     public float overCookingTime;
-    public string ingredientTag;
 
-    public AudioClip cookingClip;
-    public AudioClip burningClip;
-    public AudioClip ignitionClip;
+    [SerializeField]
+    [Tooltip("Sound clip that is played once when the food gets burned")]
+    private AudioClip _ignitionAudioSource;
 
-    private float _timer;
+    [SerializeField]
+    [Tooltip("Sound clip that is played during burning")]
+    private AudioClip _burningAudioSource;
+
+    [SerializeField]
+    [Tooltip("Looping sound clip that is played during cooking")]
+    private AudioSource _cookingAudioSource;
+
+    [SerializeField]
+    private XRGrabInteractable _xrGrab;
+
     public bool? Done { get; private set; } = false; // null means it's overcooked
 
-    public bool IsCooking { get; set; }
-    public float PassedTime => _timer;
+    public float PassedTime { get; private set; } // zu einer public variable machen, wenn es notwendig ist, Werte in Designer anzupassen
 
-    /// <summary>
-    /// Transformation, damit das Objekt richtig an den XR controller / sockets attatched wird
-    /// </summary>
-    public Transform AttatchTransform { get; private set; }
+    void Start()
+    {
+    }
 
     void Update()
     {
-        if (!IsCooking)
+        if (!_cookingAudioSource.isPlaying)
         {
             return;
         }
 
-        _timer += Time.deltaTime;
+        PassedTime += Time.deltaTime;
 
-        if (_timer > cookingTime && !Done.GetValueOrDefault(true))
+        if (PassedTime > cookingTime && !Done.GetValueOrDefault(true))
         {
             Done = true;
-            Vector3 scale = rawItem.transform.localScale;
-            CookableBehavior cookedGrabable = Instantiate(cookedItem, transform).AddComponent<CookableBehavior>();
-            AttatchTransform = rawItem.transform.Find("Attatch Transform").AttatchTo(cookedGrabable.transform);
-            Destroy(rawItem);
-            //IsCooking = true; // still cooking
-            cookedGrabable.transform.localScale = scale;
-            cookedItem = cookedGrabable.gameObject;
+            Vector3 scale = _rawItem.transform.localScale;
+            var cooked = Instantiate(_cookedItem, transform);
+            Destroy(_rawItem);
+            _xrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
+            cooked.transform.localScale = scale;
+            _cookedItem = cooked.gameObject;
         }
 
-        if (_timer > cookingTime + overCookingTime && Done.HasValue)
+        if (PassedTime > cookingTime + overCookingTime && Done.HasValue)
         {
             Done = null;
 
-            Vector3 scale = cookedItem.transform.localScale;
-            CookableBehavior burntGrabable = Instantiate(burntItem, transform).AddComponent<CookableBehavior>();
-            AttatchTransform = cookedItem.transform.Find("Attatch Transform").AttatchTo(burntGrabable.transform);
-            Destroy(cookedItem);
-            burntGrabable.transform.localScale = scale;
-            burntItem = burntGrabable.gameObject;
+            Vector3 scale = _cookedItem.transform.localScale;
+            var burnt = Instantiate(_burntItem, transform);
+            Destroy(_cookedItem);
+            _xrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
+            burnt.transform.localScale = scale;
+            _burntItem = burnt.gameObject;
 
 #if false // aktuell nicht gewünscht
             GameObject model = Instantiate(fire, transform);
-            burntGrabable.PlayBurning = true;
+            _ignitionAudioSource.PlayOneShot(_ignitionAudioSource.clip, 3f);
+            .Play();
 #endif
         }
     }
-}
 
-public static class CookingParentBehaviorExtension
-{
-    /// <summary>
-    /// Hilfsmethode, um vom Child zum Parent Information zu übertragen
-    /// </summary>
-    public static CookingParentBehavior PassParameter(this CookingParentBehavior behavior,
-        GameObject rawItem,
-        GameObject cookedItem,
-        GameObject burntItem,
-        GameObject fire,
-        float cookingTime,
-        float overCookingTime,
-        AudioClip cookingClip,
-        AudioClip burningClip,
-        AudioClip ignitionClip,
-        string ingredientTag)
+    [ContextMenu(nameof(StartCooking))]
+    public void StartCooking()
     {
-        behavior.rawItem = rawItem;
-        behavior.cookedItem = cookedItem;
-        behavior.burntItem = burntItem;
-        behavior.fire = fire;
-        behavior.cookingTime = cookingTime;
-        behavior.overCookingTime = overCookingTime;
-        behavior.cookingClip = cookingClip;
-        behavior.burningClip = burningClip;
-        behavior.ignitionClip = ignitionClip;
-        behavior.ingredientTag = ingredientTag;
-        return behavior;
+        _cookingAudioSource.Play();
+    }
+
+    [ContextMenu(nameof(StopCooking))]
+    public void StopCooking()
+    {
+        _cookingAudioSource.Stop();
     }
 }
