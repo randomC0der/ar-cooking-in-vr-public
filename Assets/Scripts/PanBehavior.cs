@@ -5,12 +5,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class PanBehavior : MonoBehaviour
 {
-    TimerBehavior _timer;
+    [SerializeField] private TimerBehavior _timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        _timer = FindObjectOfType<TimerBehavior>();
         _timer.Visible = false;
     }
 
@@ -22,7 +21,7 @@ public class PanBehavior : MonoBehaviour
 
     public void EnterPanSnap(SelectEnterEventArgs e)
     {
-        CookableBehavior cookable = e.interactableObject.transform.gameObject.GetComponent<CookableBehavior>();
+        var cookable = e.interactableObject.transform.gameObject.GetComponent<CookingParentBehavior>();
         if (cookable is null)
         {
             Debug.LogError($"{nameof(cookable)} is null");
@@ -30,12 +29,8 @@ public class PanBehavior : MonoBehaviour
         }
 
         cookable.StartCooking();
-        cookable.CookingAudioSource.Play();
 
-        if (cookable.Done.HasValue)
-        {
-            _timer.StartRunning();
-        }
+        _timer.StartRunning();
 
         if (cookable.Done == true)
         {
@@ -47,13 +42,18 @@ public class PanBehavior : MonoBehaviour
             _timer.SetTimer(cookable.cookingTime);
             _timer.TimeRemaining = (cookable.cookingTime - cookable.PassedTime);
         }
+        else
+        {
+            _timer.SetTimer(1);
+            _timer.TimeRemaining = 0.01;
+        }
 
         _timer.Visible = true;
     }
 
     public void ExitPanSnap(SelectExitEventArgs e)
     {
-        CookableBehavior cookable = e.interactableObject.transform.gameObject.GetComponent<CookableBehavior>();
+        CookingParentBehavior cookable = e.interactableObject.transform.gameObject.GetComponent<CookingParentBehavior>();
         if (cookable is null)
         {
             Debug.LogError($"{nameof(cookable)} is null");
@@ -61,7 +61,6 @@ public class PanBehavior : MonoBehaviour
         }
 
         cookable.StopCooking();
-        cookable.CookingAudioSource.Stop();
         _timer.Visible = false;
         _timer.PauseRunning();
     }

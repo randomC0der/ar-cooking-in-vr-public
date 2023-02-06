@@ -24,11 +24,7 @@ public class TrashcanBehavior : MonoBehaviour
             trashable.FinishTask();
         }
 
-        var cookable = t.GetComponent<CookableBehavior>();
+        var cookable = t.GetComponent<CookingParentBehavior>();
         Destroy(t.gameObject);
-        if (cookable != null)
-        {
-            Destroy(cookable.Parent);
-        }
     }
 }
