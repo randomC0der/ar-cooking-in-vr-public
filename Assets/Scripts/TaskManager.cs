@@ -35,7 +35,7 @@ public class TaskManager : MonoBehaviour
 
     public void FinishTask(Task task)
     {
-        _taskFinished.SetValue(task, true);
+        task.Finished = true;
         UpdateText();
     }
 
@@ -43,6 +43,7 @@ public class TaskManager : MonoBehaviour
     {
         var task = new Task(text);
         _tasks.Add(task);
+        UpdateText();
 
         return task;
     }
@@ -56,7 +57,7 @@ public class TaskManager : MonoBehaviour
     public class Task
     {
         public string Text { get; }
-        public bool Finished { get; private set; }
+        public bool Finished { get; internal set; }
 
         public Task(string text)
         {
