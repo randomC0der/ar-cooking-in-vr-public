@@ -6,6 +6,9 @@ public class KniveCollisionScript : MonoBehaviour
     [SerializeField]
     private GameObject _knive;
 
+    [SerializeField]
+    private Transform _itemSpawnPosition;
+
     private XRSocketInteractor _socketInteractor;
     private AudioSource _audioSource;
     bool _insideCuttingBoard = false; 
@@ -66,7 +69,7 @@ public class KniveCollisionScript : MonoBehaviour
         if (cuttingBehavior != null)
         {
             _audioSource?.PlayOneShot(_audioSource.clip);
-            cuttingBehavior.Cut();
+            cuttingBehavior.Cut(_itemSpawnPosition);
         }
         _insideCuttingBoard = true;
     }

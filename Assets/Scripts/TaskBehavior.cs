@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine;
 using System.Linq;
+using Unity.XR.CoreUtils;
+using UnityEditor;
 
 public class TaskBehavior : MonoBehaviour
 {
@@ -18,9 +20,15 @@ public class TaskBehavior : MonoBehaviour
 
     public void Init()
     {
-        foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>()))
+        foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>())
+            .Where(x => x != null))
         {
             interactable.enabled = false;
+            var marker = interactable.gameObject.GetNamedChild("Marker");
+            if(marker != null)
+            {
+                marker.SetActive(false);
+            }
         }
 
         foreach(GameObject marker in _markers)
@@ -31,9 +39,14 @@ public class TaskBehavior : MonoBehaviour
 
     public void StartTask()
     {
-        foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>()))
+        foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>()).Where(x => x != null))
         {
             interactable.enabled = true;
+            var marker = interactable.gameObject.GetNamedChild("Marker");
+            if (marker != null)
+            {
+                marker.SetActive(true);
+            }
         }
 
         foreach (GameObject marker in _markers)
