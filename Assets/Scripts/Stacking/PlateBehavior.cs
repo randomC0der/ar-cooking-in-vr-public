@@ -83,7 +83,7 @@ public class PlateBehavior : MonoBehaviour
     {
         for (int i = 0; i < receipe.ingredients.Length; i++)
         {
-            if (_children[i].Interactor.firstInteractableSelected?.transform.gameObject
+            if (_children[i].Interactor.firstInteractableSelected.transform.gameObject
                 .GetComponent<StackableBehavior>().ingredient != receipe.ingredients[i])
             {
                 return false;

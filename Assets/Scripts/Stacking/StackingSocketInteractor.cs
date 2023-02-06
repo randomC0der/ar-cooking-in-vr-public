@@ -5,11 +5,9 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class StackingSocketInteractor : XRSocketInteractor
 {
-    internal Transform tran;
-
     public override bool CanHover(IXRHoverInteractable interactable)
     {
-        var baseInteractable = (XRBaseInteractable) interactable;
+        var baseInteractable = (XRBaseInteractable)interactable;
 
         if (baseInteractable is null)
         {
@@ -17,7 +15,7 @@ public class StackingSocketInteractor : XRSocketInteractor
             return false;
         }
 
-        bool hover = baseInteractable.isSelected && baseInteractable.interactorsSelecting[0].transform.gameObject.name.Contains("Ray");
+        bool hover = !baseInteractable.isSelected || (baseInteractable.isSelected && baseInteractable.interactorsSelecting[0].GetType() != GetType());
         return !hasSelection && hover && base.CanHover(interactable);
     }
 
