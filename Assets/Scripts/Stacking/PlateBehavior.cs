@@ -53,6 +53,10 @@ public class PlateBehavior : MonoBehaviour
 
     void EnableNextLevel(SelectEnterEventArgs e)
     {
+        Transform t = e.interactableObject.transform;
+        var grab = (XRGrabInteractable)e.interactableObject;
+        grab.attachTransform = t.Find("Attatch Transform");
+
         // check for matching crafting recipe
         foreach (Receipe receipe in _receipes.Where(x => x.ingredients.Length == _children.Count(y => y.Interactor.hasSelection))
             .Where(receipe => IsReceipeFinished(receipe)))

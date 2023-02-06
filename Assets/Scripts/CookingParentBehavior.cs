@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 
 /// <summary>
@@ -31,8 +32,9 @@ public class CookingParentBehavior : MonoBehaviour
     [Tooltip("Looping sound clip that is played during cooking")]
     private AudioSource _cookingAudioSource;
 
-    [SerializeField]
-    private XRGrabInteractable _xrGrab;
+    [field: FormerlySerializedAs("_xrGrab")]
+    [field: SerializeField]
+    public XRGrabInteractable XrGrab { get; private set; }
 
     public bool? Done { get; private set; } = false; // null means it's overcooked
     public Action<CookingParentBehavior> OnCookingStatusChanged { get; set; }
@@ -58,7 +60,7 @@ public class CookingParentBehavior : MonoBehaviour
             Vector3 scale = _rawItem.transform.localScale;
             var cooked = Instantiate(_cookedItem, transform);
             Destroy(_rawItem);
-            _xrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
+            XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
             cooked.transform.localScale = scale;
             _cookedItem = cooked.gameObject;
             OnCookingStatusChanged?.Invoke(this);
@@ -71,7 +73,7 @@ public class CookingParentBehavior : MonoBehaviour
             Vector3 scale = _cookedItem.transform.localScale;
             var burnt = Instantiate(_burntItem, transform);
             Destroy(_cookedItem);
-            _xrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
+            XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
             burnt.transform.localScale = scale;
             _burntItem = burnt.gameObject;
             OnCookingStatusChanged?.Invoke(this);

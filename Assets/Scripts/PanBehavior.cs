@@ -30,6 +30,7 @@ public class PanBehavior : MonoBehaviour
 
         cookable.StartCooking();
         cookable.OnCookingStatusChanged = UpdateTimer;
+        cookable.XrGrab.attachTransform = cookable.transform.Find("Attatch Transform");
 
         UpdateTimer(cookable);
 
@@ -66,6 +67,7 @@ public class PanBehavior : MonoBehaviour
             return;
         }
 
+        cookable.XrGrab.attachTransform = null;
         cookable.StopCooking();
         _timer.Visible = false;
         _timer.PauseRunning();
