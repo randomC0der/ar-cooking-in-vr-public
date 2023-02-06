@@ -6,11 +6,16 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class TrashcanBehavior : MonoBehaviour
 {
     private AudioSource _audioSource;
+    private GameBehavior _gameBehavior;
+
+    private int _taskCounter = 0;
+      
 
     // Start is called before the first frame update
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        _gameBehavior = GameObject.Find("GameTaskManager").GetComponent<GameBehavior>();
     }
 
     public void EmptyTrashcan(SelectEnterEventArgs e)
@@ -21,7 +26,11 @@ public class TrashcanBehavior : MonoBehaviour
         var trashable = t.GetComponent<TrashableBehavior>();
         if (trashable != null)
         {
-            trashable.FinishTask();
+            _taskCounter++;
+            if (_taskCounter >= 1)
+            {
+                _gameBehavior.FinishTask(Task.CleanUp);
+            } 
         }
 
         var cookable = t.GetComponent<CookableBehavior>();

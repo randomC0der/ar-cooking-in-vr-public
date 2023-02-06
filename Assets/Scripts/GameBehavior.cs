@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using static TaskManager;
 
 public class GameBehavior : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _taskBoard;
+    private TaskManager _taskBoard;
     [SerializeField]
     private GameObject _directionMarkerPrefab;
 
@@ -17,28 +18,70 @@ public class GameBehavior : MonoBehaviour
     [SerializeField]
     private TaskBehavior[] _tasks;
 
+    private Dictionary<TaskBehavior, TaskBoardTask> _startedTasks = new Dictionary<TaskBehavior, TaskBoardTask>();
+
     void Start()
     {
         if(_taskBoard == null)
         {
-            _taskBoard = GameObject.Find("TaskBoard");
+            _taskBoard = GameObject.Find("TaskBoardCamera").GetComponent<TaskManager>();
         }
-
-        StartTask(Task.CleanUp);
-
-        _tasks = GetComponents<TaskBehavior>();
+        _tasks = GetComponents<TaskBehavior>();      
 
         foreach(TaskBehavior task in _tasks) {
             task.Init();
         }
+
+        StartNextTask(null);
     }
 
-    void StartTask(Task task)
+    public void StartTask(Task task)
     {
         TaskBehavior t = _tasks.SingleOrDefault(x => x.Task == task);
-        if(t != null)
+        if (t == null)
         {
-            t.StartTask();
+            return;
+        }
+
+        t.StartTask();
+        var tbt = _taskBoard.CreateTask(t.TaskText);
+        _startedTasks.Add(t, tbt);
+    }
+
+    public void FinishTask(Task task)
+    {
+        TaskBehavior t = _tasks.SingleOrDefault(x => x.Task == task);
+        if (t == null || !_startedTasks.ContainsKey(t))
+        {
+            return;
+        }
+
+        _taskBoard.FinishTask(_startedTasks[t]);
+        _startedTasks.Remove(t);
+
+        StartNextTask(task);
+    }
+
+    void StartNextTask(Task? lastTask)
+    {
+        switch (lastTask)
+        {
+            case null:
+                StartTask(Task.CleanUp);
+                break;
+            case Task.CleanUp:
+                StartTask(Task.Cutting);
+                StartTask(Task.Frying);
+                break;
+            case Task.Cutting:
+                StartTask(Task.Stacking);
+                break;
+            case Task.Frying:
+                StartTask(Task.Stacking);
+                break;
+            case Task.Stacking:
+                // Finished
+                break;
         }
     }
 }
