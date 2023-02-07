@@ -464,7 +464,7 @@
                     "name": "",
                     "id": "8da6ed3a-f621-49fe-8c76-1f6b7d7754d6",
                     "path": "<XRController>{LeftHand}/primary2DAxis",
-                    "interactions": "Sector(directions=1,pressPoint=0)",
+                    "interactions": "Sector(directions=1)",
                     "processors": "",
                     "groups": "Noncontinuous Move",
                     "action": "Teleport Mode Activate",
