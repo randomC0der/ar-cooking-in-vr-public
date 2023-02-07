@@ -54,6 +54,7 @@ public class GameBehavior : MonoBehaviour
             return;
         }
 
+        t.FinishTask();
         _taskBoard.FinishTask(_startedTasks[t]);
         _startedTasks.Remove(t);
 
