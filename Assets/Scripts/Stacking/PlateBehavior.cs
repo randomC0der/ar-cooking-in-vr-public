@@ -19,9 +19,6 @@ public class PlateBehavior : MonoBehaviour
     [SerializeField]
     private Transform _itemSpawnPosition;
 
-    [SerializeField]
-    private GameObject _craftingResult;
-
     private int _numberOfBurgerCrafted = 0;
     private GameBehavior _gameBehavior;
 
@@ -114,19 +111,17 @@ public class PlateBehavior : MonoBehaviour
 
     private void TransformIngredients(Receipe receipe)
     {
-        //GameObject product = Resources.Load<GameObject>(receipe.product); Kein Bock das jetzt zu fixen
-
         foreach (var gameobj in _children.Select(child => child.Interactor.firstInteractableSelected?.transform.gameObject)
             .Where(x => x != null))
         {
             Destroy(gameobj);
         }
 
-        var product = Instantiate(_craftingResult);
         if(++_numberOfBurgerCrafted >= 3)
         {
             _gameBehavior?.FinishTask(Task.Stacking);
         }
+        GameObject product = Resources.Load<GameObject>(receipe.product);
         product.transform.position = _itemSpawnPosition.position;
     }
 
