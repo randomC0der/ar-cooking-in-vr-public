@@ -38,14 +38,14 @@ public class CuttingBehavior : MonoBehaviour
 
     public bool Cut(Transform position)
     {
+        GameObject lettuce = Instantiate(cutObject);
+        lettuce.transform.SetPositionAndRotation(position.position, position.rotation);
+
         if (++_cutsDone == cuts)
         {
             Destroy(gameObject);
             return true;
         }
-
-        GameObject lettuce = Instantiate(cutObject);
-        lettuce.transform.SetPositionAndRotation(position.position, position.rotation);
         return false;
     }
 }

@@ -22,9 +22,13 @@ public class PlateBehavior : MonoBehaviour
     [SerializeField]
     private GameObject _craftingResult;
 
+    private int _numberOfBurgerCrafted = 0;
+    private GameBehavior _gameBehavior;
+
     // Start is called before the first frame update
     void Start()
     {
+        _gameBehavior = GameObject.Find("GameTaskManager").GetComponent<GameBehavior>();
         TextAsset textAsset = Resources.Load<TextAsset>("Recipes");
         _receipes = JsonUtility.FromJson<ReceipeBook>(textAsset.text).recipes;
 
@@ -119,6 +123,10 @@ public class PlateBehavior : MonoBehaviour
         }
 
         var product = Instantiate(_craftingResult);
+        if(++_numberOfBurgerCrafted >= 3)
+        {
+            _gameBehavior?.FinishTask(Task.Stacking);
+        }
         product.transform.position = _itemSpawnPosition.position;
     }
 
