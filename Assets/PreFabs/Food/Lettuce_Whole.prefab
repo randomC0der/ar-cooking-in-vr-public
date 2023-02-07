@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7469141726760777611}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &5968802484424994572
 GameObject:
@@ -57,6 +57,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 7188839506063963462}
   - {fileID: 7469141726760777611}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -66,7 +67,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 7469141726760777611}
+    m_TransformParent: {fileID: 5013393050573061363}
     m_Modifications:
     - target: {fileID: 2435621307841815699, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
@@ -146,22 +147,27 @@ PrefabInstance:
     - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.27999997
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.33
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.32999995
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2250001
       objectReference: {fileID: 0}
     - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.015000004
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
@@ -170,8 +176,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
+        type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 9063568108627717755, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
         type: 3}
@@ -180,6 +191,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b5b7a6924a728748bf50bcf49cee0f1, type: 3}
+--- !u!4 &7188839506063963462 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8279926889884415207, guid: 6b5b7a6924a728748bf50bcf49cee0f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1237318722222244257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6930197251484733536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,7 +207,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 2d20cf5d9b8d87c4cba52185b57c259e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d20cf5d9b8d87c4cba52185b57c259e,
         type: 3}
@@ -292,19 +309,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &4609372412601049121
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7848763146648939825}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.016612407, y: 0.01661241, z: 0.013684968}
-  m_Center: {x: 4.656613e-10, y: -4.656614e-10, z: -0.00050078996}
 --- !u!114 &919610438295263275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,3 +450,17 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!136 &864231787578498191
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848763146648939825}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.008306203
+  m_Height: 0.01661241
+  m_Direction: 1
+  m_Center: {x: 4.656613e-10, y: -4.656614e-10, z: -0.00050078996}
