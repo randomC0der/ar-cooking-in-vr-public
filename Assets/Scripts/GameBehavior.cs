@@ -10,8 +10,6 @@ public class GameBehavior : MonoBehaviour
 {
     [SerializeField]
     private TaskManager _taskBoard;
-    [SerializeField]
-    private GameObject _directionMarkerPrefab;
 
     private List<Task> currentTasks = new List<Task>();
 

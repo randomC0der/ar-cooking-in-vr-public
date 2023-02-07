@@ -28,6 +28,7 @@ public class TaskBehavior : MonoBehaviour
             if(marker != null)
             {
                 marker.SetActive(false);
+                _markers.Add(marker);
             }
         }
 
@@ -42,11 +43,6 @@ public class TaskBehavior : MonoBehaviour
         foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>()).Where(x => x != null))
         {
             interactable.enabled = true;
-            var marker = interactable.gameObject.GetNamedChild("Marker");
-            if (marker != null)
-            {
-                marker.SetActive(true);
-            }
         }
 
         foreach (GameObject marker in _markers)

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 412759556370991917}
   - component: {fileID: 3855513805109827020}
   - component: {fileID: 6369584253779027446}
-  - component: {fileID: 3782353891488600817}
   m_Layer: 8
   m_Name: Marker Mesh
   m_TagString: Untagged
@@ -82,18 +81,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4862703982557021840}
   m_Mesh: {fileID: 3613567641014311022, guid: 355c61137d7003843aa27f5492ad8bfa, type: 3}
---- !u!114 &3782353891488600817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4862703982557021840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e090f8daee06b4881dcf1771d71dbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8765101155458199133
 GameObject:
   m_ObjectHideFlags: 0

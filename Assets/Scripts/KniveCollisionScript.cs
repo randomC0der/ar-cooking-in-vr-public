@@ -11,7 +11,12 @@ public class KniveCollisionScript : MonoBehaviour
 
     private XRSocketInteractor _socketInteractor;
     private AudioSource _audioSource;
-    bool _insideCuttingBoard = false; 
+    bool _insideCuttingBoard = false;
+
+    private int numberOfCutLettuce = 0;
+    private int numberOfCutTomatos = 0;
+
+    private GameBehavior _gameBehavior;
 
     private void Start()
     {
@@ -20,6 +25,8 @@ public class KniveCollisionScript : MonoBehaviour
 
         _socketInteractor.hoverEntered.AddListener(HoverEntered);
         _socketInteractor.hoverExited.AddListener(HoverExited);
+
+        _gameBehavior = GameObject.Find("GameTaskManager");
     }
 
     private void HoverEntered(HoverEnterEventArgs e)
