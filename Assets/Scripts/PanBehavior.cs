@@ -42,7 +42,7 @@ public class PanBehavior : MonoBehaviour
         _timer.Visible = true;
     }
 
-    private void UpdateTimer(CookingParentBehavior cookable)
+    private void UpdateTimer(CookingParentBehavior cookable, bool statusActuallyChanged = false)
     {
         _timer.StartRunning();
 
@@ -51,6 +51,11 @@ public class PanBehavior : MonoBehaviour
             _timer.SetTimer(cookable.overCookingTime);
             _timer.TimeRemaining = cookable.overCookingTime + cookable.cookingTime - cookable.PassedTime;
             img.color = _timer.color2;
+
+            if (statusActuallyChanged)
+            {
+                // hier code einfügen
+            }
         }
         else if (cookable.Done == false)
         {
