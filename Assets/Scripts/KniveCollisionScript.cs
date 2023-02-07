@@ -26,7 +26,7 @@ public class KniveCollisionScript : MonoBehaviour
         _socketInteractor.hoverEntered.AddListener(HoverEntered);
         _socketInteractor.hoverExited.AddListener(HoverExited);
 
-        _gameBehavior = GameObject.Find("GameTaskManager");
+        _gameBehavior = GameObject.Find("GameTaskManager").GetComponent<GameBehavior>();
     }
 
     private void HoverEntered(HoverEnterEventArgs e)
@@ -76,8 +76,24 @@ public class KniveCollisionScript : MonoBehaviour
         if (cuttingBehavior != null)
         {
             _audioSource?.PlayOneShot(_audioSource.clip);
-            cuttingBehavior.Cut(_itemSpawnPosition);
+            if (cuttingBehavior.Cut(_itemSpawnPosition))
+            {
+
+                if (cuttingBehavior.ingredient == "lettuce")
+                {
+                    numberOfCutLettuce++;
+                }
+                if (cuttingBehavior.ingredient == "tomato")
+                {
+                    numberOfCutTomatos++;
+                }
+                if (numberOfCutLettuce >= 1 && numberOfCutTomatos >= 1)
+                {
+                    _gameBehavior?.FinishTask(Task.Cutting);
+                }
+            }
         }
+
         _insideCuttingBoard = true;
     }
 
@@ -85,4 +101,6 @@ public class KniveCollisionScript : MonoBehaviour
     {
         _insideCuttingBoard = false;
     }
+
+
 }

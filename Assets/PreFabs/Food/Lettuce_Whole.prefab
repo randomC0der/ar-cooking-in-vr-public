@@ -191,7 +191,7 @@ MonoBehaviour:
   cuts: 3
   cutObject: {fileID: 3668576839306009512, guid: af19dd23ff80b4249aea8131a2fdb2ca,
     type: 3}
-  ingredient: 
+  ingredient: lettuce
 --- !u!1001 &1237318722222244257
 PrefabInstance:
   m_ObjectHideFlags: 0

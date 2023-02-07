@@ -50,4 +50,12 @@ public class TaskBehavior : MonoBehaviour
             marker.SetActive(true);
         }
     }
+
+    public void FinishTask()
+    {
+        foreach (GameObject marker in _markers)
+        {
+            marker.SetActive(false);
+        }
+    }
 }

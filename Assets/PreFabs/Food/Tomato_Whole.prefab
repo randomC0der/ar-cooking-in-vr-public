@@ -191,7 +191,7 @@ MonoBehaviour:
   cuts: 3
   cutObject: {fileID: 3231935007278454001, guid: 4d5311c37bbe3ec4a8b2f3c031cb5948,
     type: 3}
-  ingredient: 
+  ingredient: tomato
 --- !u!1001 &3057760818182864601
 PrefabInstance:
   m_ObjectHideFlags: 0
