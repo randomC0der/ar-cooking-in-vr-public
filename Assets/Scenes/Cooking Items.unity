@@ -678,6 +678,8 @@ MonoBehaviour:
   - {fileID: 1323332805}
   - {fileID: 926161517}
   - {fileID: 1987207181}
+  - {fileID: 1313866703}
+  - {fileID: 460284608}
   _markers: []
   TaskText: Brate 3 Burgerpattys
   Task: 3
@@ -705,6 +707,12 @@ MonoBehaviour:
   _markers: []
   TaskText: Schneide 1 Salatkopf und 1 Tomate zurecht
   Task: 2
+--- !u!1 &460284608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3049335676897205347, guid: fba52c2bc8e1cae4196de1314d3cc69b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1769993305}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473501748 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6350208228644443119, guid: feefa26e5583ee24e9568d26a2905494,
@@ -3070,6 +3078,12 @@ Transform:
   m_Father: {fileID: 1993423333}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1313866703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3049335676897205347, guid: fba52c2bc8e1cae4196de1314d3cc69b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1944822588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1323332804
 PrefabInstance:
   m_ObjectHideFlags: 0

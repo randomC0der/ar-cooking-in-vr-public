@@ -87,8 +87,8 @@ MonoBehaviour:
   _cookedItem: {fileID: 2385468349369041288}
   _burntItem: {fileID: 7526516497817804848}
   _fire: {fileID: 0}
-  cookingTime: 2
-  overCookingTime: 2
+  cookingTime: 30
+  overCookingTime: 15
   _ignitionAudioSource: {fileID: 0}
   _burningAudioSource: {fileID: 0}
   _cookingAudioSource: {fileID: 7037909083928974428}

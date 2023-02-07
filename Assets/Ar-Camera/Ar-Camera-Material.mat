@@ -57,7 +57,7 @@ Material:
     - Color_8ea8b51475084c99846639eb54b1396a: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_47ee7fa914f94c26b12dc53dae0e29d0: {r: 0.7, g: 0.7, b: 0, a: 0}
     - _BorderColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Scaling: {r: 1, g: 0.5, b: 0, a: 0}
+    - _Scaling: {r: 0.5, g: 0.25, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8714552793701940569
 MonoBehaviour:
