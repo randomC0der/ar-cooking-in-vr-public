@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -60,8 +61,13 @@ public class HoverHighlighter : MonoBehaviour
 
         lock (interactable)
         {
-            var rend = interactable.transform.gameObject.GetComponent<Renderer>();
-            if (lastHighlighted == interactable || rend == null)
+            var gobj = interactable.transform.gameObject;
+            var renderers = gobj.GetComponents<Renderer>();
+            if(renderers.Count() <= 0)
+            {
+                renderers = gobj.GetComponentsInChildren<Renderer>();
+            }
+            if (lastHighlighted == interactable || renderers == null)
             {
                 return;
             }
@@ -70,8 +76,12 @@ public class HoverHighlighter : MonoBehaviour
             Unhightlight(lastHighlighted);
 
             //Highlight current
-            rend.material.EnableKeyword("_EMISSION");
-            rend.material.SetColor("_EmissionColor", color);
+            foreach(var rend in renderers)
+            {
+                rend.material.EnableKeyword("_EMISSION");
+                rend.material.SetColor("_EmissionColor", color);
+            }
+            
 
             //Save current as last
             lastHighlighted = interactable;
@@ -87,13 +97,18 @@ public class HoverHighlighter : MonoBehaviour
 
         lock (interactable)
         {
-            var rend = interactable.transform.gameObject.GetComponent<Renderer>();
-            if (rend == null)
+            var gobj = interactable.transform.gameObject;
+            var renderers = gobj.GetComponents<Renderer>();
+            if (renderers.Count() <= 0)
             {
-                return;
+                renderers = gobj.GetComponentsInChildren<Renderer>();
             }
 
-            rend.material.DisableKeyword("_EMISSION");
+            foreach (var rend in renderers)
+            {
+                rend.material.DisableKeyword("_EMISSION");
+            }
+
             lastHighlighted = null;
         }
     }

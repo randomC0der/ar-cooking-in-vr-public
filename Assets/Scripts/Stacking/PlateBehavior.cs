@@ -12,9 +12,15 @@ public class PlateBehavior : MonoBehaviour
     [SerializeField] 
     private AudioSource _audioSource;
     [SerializeField]
-    private GameObject _snapSpace;
+    private GameObject _bottomSnapSpace;
     private readonly List<SnapSpace> _children = new List<SnapSpace>();
     private Receipe[] _receipes;
+
+    [SerializeField]
+    private Transform _itemSpawnPosition;
+
+    [SerializeField]
+    private GameObject _craftingResult;
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +28,14 @@ public class PlateBehavior : MonoBehaviour
         TextAsset textAsset = Resources.Load<TextAsset>("Recipes");
         _receipes = JsonUtility.FromJson<ReceipeBook>(textAsset.text).recipes;
 
-        AddSnapSpace(_snapSpace.GetComponent<SnapBehavior>());
-        //CreateSnapSpace();
+        AddSnapSpace(_bottomSnapSpace.GetComponent<SnapBehavior>());
     }
 
     SnapSpace CreateSnapSpace()
     {
-        var snapSpace = Instantiate(_snapSpace, transform).GetComponent<SnapBehavior>();
+        var snapSpace = Instantiate(_bottomSnapSpace, transform).GetComponent<SnapBehavior>();
+        var nextPosition = _bottomSnapSpace.transform.localPosition + new Vector3(0, .035f * _children.Count, 0);
+        snapSpace.transform.localPosition = nextPosition;
         return AddSnapSpace(snapSpace);
     }
 
@@ -75,7 +82,6 @@ public class PlateBehavior : MonoBehaviour
         if (_children.All(x => x.Interactor.hasSelection))
         {
             var snapSpace = CreateSnapSpace();
-            snapSpace.GameObject.transform.Translate(new Vector3(0, .01f * _children.Count));
             return;
         }
 
@@ -104,7 +110,7 @@ public class PlateBehavior : MonoBehaviour
 
     private void TransformIngredients(Receipe receipe)
     {
-        GameObject product = Resources.Load<GameObject>(receipe.product);
+        //GameObject product = Resources.Load<GameObject>(receipe.product); Kein Bock das jetzt zu fixen
 
         foreach (var gameobj in _children.Select(child => child.Interactor.firstInteractableSelected?.transform.gameObject)
             .Where(x => x != null))
@@ -112,8 +118,8 @@ public class PlateBehavior : MonoBehaviour
             Destroy(gameobj);
         }
 
-        product = Instantiate(product);
-        product.transform.position = transform.position;
+        var product = Instantiate(_craftingResult);
+        product.transform.position = _itemSpawnPosition.position;
     }
 
     void DisableNextLevel(SelectExitEventArgs e)
