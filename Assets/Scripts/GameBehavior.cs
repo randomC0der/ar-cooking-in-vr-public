@@ -61,6 +61,8 @@ public class GameBehavior : MonoBehaviour
         StartNextTask(task);
     }
 
+    private bool isCuttingDone, isFryingDone;
+
     void StartNextTask(Task? lastTask)
     {
         switch (lastTask)
@@ -73,10 +75,18 @@ public class GameBehavior : MonoBehaviour
                 StartTask(Task.Frying);
                 break;
             case Task.Cutting:
-                StartTask(Task.Stacking);
+                isCuttingDone = true;
+                if (isFryingDone)
+                {
+                    StartTask(Task.Stacking);
+                }
                 break;
             case Task.Frying:
-                StartTask(Task.Stacking);
+                isFryingDone = true;
+                if (isCuttingDone)
+                {
+                    StartTask(Task.Stacking);
+                }
                 break;
             case Task.Stacking:
                 // Finished
