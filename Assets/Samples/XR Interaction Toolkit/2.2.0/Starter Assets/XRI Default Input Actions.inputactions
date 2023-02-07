@@ -463,8 +463,8 @@
                 {
                     "name": "",
                     "id": "8da6ed3a-f621-49fe-8c76-1f6b7d7754d6",
-                    "path": "<XRController>{LeftHand}/Primary2DAxis",
-                    "interactions": "Sector(directions=1)",
+                    "path": "<XRController>{LeftHand}/primary2DAxis",
+                    "interactions": "Sector(directions=1,pressPoint=0)",
                     "processors": "",
                     "groups": "Noncontinuous Move",
                     "action": "Teleport Mode Activate",
@@ -953,7 +953,7 @@
                 {
                     "name": "",
                     "id": "62690862-4688-4010-975b-b3d9c6062157",
-                    "path": "<ViveController>/trackpad",
+                    "path": "<XRController>{RightHand}/trackpad",
                     "interactions": "Sector(directions=1)",
                     "processors": "",
                     "groups": "Generic XR Controller",
