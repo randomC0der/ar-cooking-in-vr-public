@@ -87,6 +87,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Marker
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 355c61137d7003843aa27f5492ad8bfa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 355c61137d7003843aa27f5492ad8bfa, type: 3}
 --- !u!1 &8765101155458199133 stripped

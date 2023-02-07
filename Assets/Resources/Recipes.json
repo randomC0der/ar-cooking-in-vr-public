@@ -2,8 +2,12 @@
   "recipes": [
     {
       "ingredients": [
-        "bun",
-        "patty"
+        "bun-bottom",
+        "patty",
+        "cheese",
+        "lettuce",
+        "tomato",
+        "bun-top"
       ],
       "product":  "burger"
     }

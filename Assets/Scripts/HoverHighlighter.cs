@@ -60,7 +60,8 @@ public class HoverHighlighter : MonoBehaviour
 
         lock (interactable)
         {
-            var rend = interactable.transform.gameObject.GetComponent<Renderer>();
+            var gobj = interactable.transform.gameObject;
+            var rend = gobj.GetComponent<Renderer>() ?? gobj.GetComponentInChildren<Renderer>();
             if (lastHighlighted == interactable || rend == null)
             {
                 return;

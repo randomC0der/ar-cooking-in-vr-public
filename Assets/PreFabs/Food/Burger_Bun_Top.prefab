@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2784773b72076ad4abe1293b04d2505d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredient: bun_top
+  ingredient: bun-top
 --- !u!1001 &693938137591354389
 PrefabInstance:
   m_ObjectHideFlags: 0
