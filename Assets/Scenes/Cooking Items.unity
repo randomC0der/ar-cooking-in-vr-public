@@ -1028,8 +1028,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769277869}
   m_LocalRotation: {x: -0, y: 0.8682213, z: -0, w: 0.49617714}
-  m_LocalPosition: {x: -0.003, y: 0.29, z: -0.031}
-  m_LocalScale: {x: 0.5328785, y: 0.41723558, z: 0.7936092}
+  m_LocalPosition: {x: 0.018, y: 0.147, z: 0.039}
+  m_LocalScale: {x: 0.30698073, y: 0.12910928, z: 0.39056203}
   m_Children: []
   m_Father: {fileID: 1993423333}
   m_RootOrder: 1
@@ -1170,7 +1170,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769277869}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1181,7 +1181,8 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 2100000, guid: 3895e8e79e3dfd04ea8eb7b705e903b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1344,7 +1345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777011346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.039, y: 0.049, z: -0.062}
+  m_LocalPosition: {x: -0.018, y: 0.068, z: -0.008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1993423333}
@@ -4838,8 +4839,6 @@ MonoBehaviour:
   _audioSource: {fileID: 1951767224}
   _bottomSnapSpace: {fileID: 163316359}
   _itemSpawnPosition: {fileID: 626861911}
-  _craftingResult: {fileID: 6242993862223832952, guid: 65764a22e02218548b63e5b6a9b19338,
-    type: 3}
 --- !u!82 &1951767224
 AudioSource:
   m_ObjectHideFlags: 0

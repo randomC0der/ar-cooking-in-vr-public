@@ -27,7 +27,7 @@ public class TrashcanBehavior : MonoBehaviour
         if (trashable != null)
         {
             _taskCounter++;
-            if (_taskCounter >= 1)
+            if (_taskCounter >= 4)
             {
                 _gameBehavior?.FinishTask(Task.CleanUp);
             } 

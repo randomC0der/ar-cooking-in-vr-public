@@ -122,6 +122,7 @@ public class PlateBehavior : MonoBehaviour
             _gameBehavior?.FinishTask(Task.Stacking);
         }
         GameObject product = Resources.Load<GameObject>(receipe.product);
+        product = Instantiate(product);
         product.transform.position = _itemSpawnPosition.position;
     }
 
