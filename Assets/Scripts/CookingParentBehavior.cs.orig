@@ -10,7 +10,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 /// <summary>
 /// Annahmen: <see cref="_rawItem"/> und <see cref="_cookedItem"/> müssen die gleiche Skalierung haben.
 /// </summary>
-[RequireComponent(typeof(StackableBehavior), typeof(XRGrabInteractable))]
 public class CookingParentBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject _rawItem;
@@ -42,11 +41,8 @@ public class CookingParentBehavior : MonoBehaviour
 
     public float PassedTime { get; private set; } // zu einer public variable machen, wenn es notwendig ist, Werte in Designer anzupassen
 
-    private StackableBehavior _stackableBehavior;
-
     void Start()
     {
-        _stackableBehavior = GetComponent<StackableBehavior>();
     }
 
     void Update()
@@ -61,20 +57,28 @@ public class CookingParentBehavior : MonoBehaviour
         if (PassedTime > cookingTime && !Done.GetValueOrDefault(true))
         {
             Done = true;
-            _rawItem.SetActive(false);
-            _cookedItem.SetActive(true);
-            _burntItem.SetActive(false);
-            _stackableBehavior.ingredient = "patty";
+            var cooked = Instantiate(_cookedItem, transform);
+            Destroy(_rawItem);
+<<<<<<< HEAD
+=======
+            XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable", "Stackable");
+            cooked.transform.localScale = scale;
+            _cookedItem = cooked.gameObject;
+>>>>>>> 1987428a34b494c0103b42abbfa2844ed62ed0e4
             OnCookingStatusChanged?.Invoke(this);
         }
 
         if (PassedTime > cookingTime + overCookingTime && Done.HasValue)
         {
             Done = null;
-            _rawItem.SetActive(false);
-            _cookedItem.SetActive(false);
-            _burntItem.SetActive(true);
-            _stackableBehavior.ingredient = "burned-patty";
+            var burnt = Instantiate(_burntItem, transform);
+            Destroy(_cookedItem);
+<<<<<<< HEAD
+=======
+            XrGrab.interactionLayers = InteractionLayerMask.GetMask("Default", "Cookable");
+            burnt.transform.localScale = scale;
+            _burntItem = burnt.gameObject;
+>>>>>>> 1987428a34b494c0103b42abbfa2844ed62ed0e4
             OnCookingStatusChanged?.Invoke(this);
 
 #if false // aktuell nicht gewünscht
