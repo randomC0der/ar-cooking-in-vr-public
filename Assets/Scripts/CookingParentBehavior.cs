@@ -38,7 +38,7 @@ public class CookingParentBehavior : MonoBehaviour
     public XRGrabInteractable XrGrab { get; private set; }
 
     public bool? Done { get; private set; } = false; // null means it's overcooked
-    public Action<CookingParentBehavior> OnCookingStatusChanged { get; set; }
+    public Action<CookingParentBehavior, bool> OnCookingStatusChanged { get; set; }
 
     public float PassedTime { get; private set; } // zu einer public variable machen, wenn es notwendig ist, Werte in Designer anzupassen
 
@@ -65,7 +65,7 @@ public class CookingParentBehavior : MonoBehaviour
             _cookedItem.SetActive(true);
             _burntItem.SetActive(false);
             _stackableBehavior.ingredient = "patty";
-            OnCookingStatusChanged?.Invoke(this);
+            OnCookingStatusChanged?.Invoke(this, true);
         }
 
         if (PassedTime > cookingTime + overCookingTime && Done.HasValue)
@@ -75,7 +75,7 @@ public class CookingParentBehavior : MonoBehaviour
             _cookedItem.SetActive(false);
             _burntItem.SetActive(true);
             _stackableBehavior.ingredient = "burned-patty";
-            OnCookingStatusChanged?.Invoke(this);
+            OnCookingStatusChanged?.Invoke(this, true);
 
 #if false // aktuell nicht gewünscht
             GameObject model = Instantiate(fire, transform);
