@@ -5,6 +5,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MarkerBehavior : MonoBehaviour
 {
+    private bool _previous;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +19,12 @@ public class MarkerBehavior : MonoBehaviour
 
     public void HideOnSelectionEnter(SelectEnterEventArgs e)
     {
+        _previous = gameObject.activeSelf;
         gameObject.SetActive(false);
     }
 
     public void ShowOnSelectionExit(SelectExitEventArgs e)
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(_previous);
     }
 }
