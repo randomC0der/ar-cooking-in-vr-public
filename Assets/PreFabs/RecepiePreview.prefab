@@ -522,8 +522,8 @@ Rigidbody:
   m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -536,23 +536,10 @@ BoxCollider:
   m_GameObject: {fileID: 4111863713746735477}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.008056534, y: 0.006685964, z: 0.0007649783}
   m_Center: {x: -0.001263236, y: 0.0015837332, z: 0.00017410271}
---- !u!114 &6098546864165193364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4111863713746735477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2784773b72076ad4abe1293b04d2505d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredient: tomato
 --- !u!114 &2015450122538970571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,6 +665,19 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &6098546864165193364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111863713746735477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2784773b72076ad4abe1293b04d2505d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredient: tomato
 --- !u!1001 &5475199065238463769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -880,8 +880,8 @@ Rigidbody:
   m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -894,7 +894,7 @@ BoxCollider:
   m_GameObject: {fileID: 7989997463940860598}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.017880501, y: 0.016828679, z: 0.0023055766}
   m_Center: {x: -0.00045560393, y: -0.0006191168, z: 0.00052938383}
