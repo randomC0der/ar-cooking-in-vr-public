@@ -9,6 +9,8 @@ public class PanBehavior : MonoBehaviour
     [SerializeField] private TimerBehavior _timer;
     private Image img;
 
+    private int _numberOfCookedPatties = 0;
+
     // Start is called before the first frame update
     void Start()
     {
