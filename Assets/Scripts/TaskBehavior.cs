@@ -55,7 +55,15 @@ public class TaskBehavior : MonoBehaviour
     {
         foreach (GameObject marker in _markers)
         {
-            marker.SetActive(false);
+            try
+            {
+                marker.SetActive(false);
+            }
+            catch
+            {
+                // Fuck you
+            }
+            
         }
     }
 }

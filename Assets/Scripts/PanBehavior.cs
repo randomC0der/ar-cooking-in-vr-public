@@ -10,12 +10,14 @@ public class PanBehavior : MonoBehaviour
     private Image img;
 
     private int _numberOfCookedPatties = 0;
+    private GameBehavior _gameBehavior;
 
     // Start is called before the first frame update
     void Start()
     {
         _timer.Visible = false;
         img = GameObject.Find("TimeDial").GetComponent<Image>();
+        _gameBehavior = GameObject.Find("GameTaskManager").GetComponent<GameBehavior>();
     }
 
     // Update is called once per frame
@@ -54,7 +56,10 @@ public class PanBehavior : MonoBehaviour
 
             if (statusActuallyChanged)
             {
-                // hier code einfügen
+                if(++_numberOfCookedPatties >= 3)
+                {
+                    _gameBehavior?.FinishTask(Task.Frying);
+                }
             }
         }
         else if (cookable.Done == false)
