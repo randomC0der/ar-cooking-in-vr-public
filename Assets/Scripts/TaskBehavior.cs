@@ -22,11 +22,16 @@ public class TaskBehavior : MonoBehaviour
 
     public void Init()
     {
-        foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>())
-            .Where(x => x != null))
+        foreach (GameObject obj in _gameObjects)
         {
+            XRGrabInteractable interactable = obj.GetComponent<XRGrabInteractable>();
+            if(interactable == null)
+            {
+                continue;
+            }
+
             interactable.enabled = false;
-            var marker = interactable.gameObject.GetNamedChild("Marker");
+            var marker = GetMarker(obj);
             if (marker != null)
             {
                 marker.SetActive(false);
@@ -44,7 +49,7 @@ public class TaskBehavior : MonoBehaviour
     {
         _gameObjects.Add(gameObject);
         var interactable = gameObject.GetComponent<XRGrabInteractable>();
-        var marker = interactable.gameObject.GetNamedChild("Marker");
+        var marker = GetMarker(gameObject);
         if (marker is null)
         {
             Debug.LogWarning("Marker is null");
@@ -58,7 +63,7 @@ public class TaskBehavior : MonoBehaviour
     {
         _gameObjects.Remove(gameObject);
         var interactable = gameObject.GetComponent<XRGrabInteractable>();
-        var marker = interactable.gameObject.GetNamedChild("Marker");
+        var marker = GetMarker(gameObject);
         if (marker is null)
         {
             Debug.LogWarning("Marker is null");
@@ -99,5 +104,13 @@ public class TaskBehavior : MonoBehaviour
             }
 
         }
+    }
+
+
+    GameObject GetMarker(GameObject obj)
+    {
+        return obj.GetComponentsInChildren<Transform>(true)
+            .Select(x => x.gameObject)
+            .SingleOrDefault(x => x.name == "Marker");
     }
 }
