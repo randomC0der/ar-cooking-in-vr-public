@@ -19,10 +19,12 @@ public class CuttingBehavior : MonoBehaviour
     public Action<Collider> OnTriggerEnterAction { get; set; }
     public Action<Collider> OnTriggerExitAction { get; set; }
 
+    private GameBehavior _gameBehavior;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _gameBehavior = FindObjectOfType<GameBehavior>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,6 +41,8 @@ public class CuttingBehavior : MonoBehaviour
     public bool Cut(Transform position)
     {
         GameObject lettuce = Instantiate(cutObject);
+        _gameBehavior.AddObjectToTask(lettuce, Task.Stacking);
+
         lettuce.transform.SetPositionAndRotation(position.position, position.rotation);
 
         if (++_cutsDone == cuts)

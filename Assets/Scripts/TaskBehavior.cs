@@ -18,6 +18,8 @@ public class TaskBehavior : MonoBehaviour
 
     public Task Task;
 
+    public bool TaskActive { get; private set; }
+
     public void Init()
     {
         foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>())
@@ -25,21 +27,51 @@ public class TaskBehavior : MonoBehaviour
         {
             interactable.enabled = false;
             var marker = interactable.gameObject.GetNamedChild("Marker");
-            if(marker != null)
+            if (marker != null)
             {
                 marker.SetActive(false);
                 _markers.Add(marker);
             }
         }
 
-        foreach(GameObject marker in _markers)
+        foreach (GameObject marker in _markers)
         {
             marker.SetActive(false);
         }
     }
 
+    public void AddObjectToTask(GameObject gameObject)
+    {
+        _gameObjects.Add(gameObject);
+        var interactable = gameObject.GetComponent<XRGrabInteractable>();
+        var marker = interactable.gameObject.GetNamedChild("Marker");
+        if (marker is null)
+        {
+            Debug.LogWarning("Marker is null");
+            return;
+        }
+        _markers.Add(marker);
+        marker.SetActive(TaskActive);
+    }
+
+    public void RemoveObjectFromTask(GameObject gameObject)
+    {
+        _gameObjects.Remove(gameObject);
+        var interactable = gameObject.GetComponent<XRGrabInteractable>();
+        var marker = interactable.gameObject.GetNamedChild("Marker");
+        if (marker is null)
+        {
+            Debug.LogWarning("Marker is null");
+            return;
+        }
+        _markers.Remove(marker);
+        marker.SetActive(false);
+    }
+
     public void StartTask()
     {
+        TaskActive = true;
+
         foreach (XRGrabInteractable interactable in _gameObjects.Select(x => x.GetComponent<XRGrabInteractable>()).Where(x => x != null))
         {
             interactable.enabled = true;
@@ -53,6 +85,8 @@ public class TaskBehavior : MonoBehaviour
 
     public void FinishTask()
     {
+        TaskActive = false;
+
         foreach (GameObject marker in _markers)
         {
             try
@@ -63,7 +97,7 @@ public class TaskBehavior : MonoBehaviour
             {
                 // Fuck you
             }
-            
+
         }
     }
 }

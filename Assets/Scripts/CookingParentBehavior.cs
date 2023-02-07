@@ -43,10 +43,12 @@ public class CookingParentBehavior : MonoBehaviour
     public float PassedTime { get; private set; } // zu einer public variable machen, wenn es notwendig ist, Werte in Designer anzupassen
 
     private StackableBehavior _stackableBehavior;
+    private GameBehavior _gameBehavior;
 
     void Start()
     {
         _stackableBehavior = GetComponent<StackableBehavior>();
+        _gameBehavior = FindObjectOfType<GameBehavior>();
     }
 
     void Update()
@@ -66,6 +68,7 @@ public class CookingParentBehavior : MonoBehaviour
             _burntItem.SetActive(false);
             _stackableBehavior.ingredient = "patty";
             OnCookingStatusChanged?.Invoke(this, true);
+            _gameBehavior.AddObjectToTask(_cookedItem, Task.Stacking);
         }
 
         if (PassedTime > cookingTime + overCookingTime && Done.HasValue)
@@ -76,6 +79,7 @@ public class CookingParentBehavior : MonoBehaviour
             _burntItem.SetActive(true);
             _stackableBehavior.ingredient = "burned-patty";
             OnCookingStatusChanged?.Invoke(this, true);
+            _gameBehavior.RemoveObjectFromTask(_cookedItem, Task.Stacking);
 
 #if false // aktuell nicht gewünscht
             GameObject model = Instantiate(fire, transform);

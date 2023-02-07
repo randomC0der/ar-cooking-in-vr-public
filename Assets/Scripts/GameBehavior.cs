@@ -93,6 +93,18 @@ public class GameBehavior : MonoBehaviour
                 break;
         }
     }
+
+    public void AddObjectToTask(GameObject gameObject, Task task)
+    {
+        var t = _tasks.SingleOrDefault(x => x.Task == task);
+        t.AddObjectToTask(gameObject);
+    }
+
+    public void RemoveObjectFromTask(GameObject gameObject, Task task)
+    {
+        var t = _tasks.SingleOrDefault(x => x.Task == task);
+        t.RemoveObjectFromTask(gameObject);
+    }
 }
 
 public enum Task
