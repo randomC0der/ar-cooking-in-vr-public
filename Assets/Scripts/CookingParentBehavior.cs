@@ -68,7 +68,7 @@ public class CookingParentBehavior : MonoBehaviour
             _burntItem.SetActive(false);
             _stackableBehavior.ingredient = "patty";
             OnCookingStatusChanged?.Invoke(this, true);
-            _gameBehavior.AddObjectToTask(_cookedItem, Task.Stacking);
+            _gameBehavior.AddObjectToTask(gameObject, Task.Stacking);
         }
 
         if (PassedTime > cookingTime + overCookingTime && Done.HasValue)
@@ -79,7 +79,7 @@ public class CookingParentBehavior : MonoBehaviour
             _burntItem.SetActive(true);
             _stackableBehavior.ingredient = "burned-patty";
             OnCookingStatusChanged?.Invoke(this, true);
-            _gameBehavior.RemoveObjectFromTask(_cookedItem, Task.Stacking);
+            _gameBehavior.RemoveObjectFromTask(gameObject, Task.Stacking);
 
 #if false // aktuell nicht gewünscht
             GameObject model = Instantiate(fire, transform);
